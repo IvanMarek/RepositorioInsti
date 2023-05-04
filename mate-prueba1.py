@@ -81,3 +81,4 @@ elif(pendiente==-1):
         print("no tiene raices")
     print("El vertice X es: " + str(vertice_x))
     print("El vertice y es: " + str(vertice_y))
+    #hola q hace
