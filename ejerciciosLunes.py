@@ -37,7 +37,7 @@ while 1:
 
 Crea una tupla con números e indica el numero con mayor valor y el que menor tenga."""
 
-numeros=(1,5,6,9,4,2,3,7,8,10,23,21,-40,39,50,200)
+"""numeros=(1,5,6,9,4,2,3,7,8,10,23,21,-40,39,50,200)
 mayor=0
 menor=0
 for i in range(0,len(numeros)):
@@ -48,6 +48,26 @@ for i in range(0,len(numeros)):
         max=numeros[i]
     if numeros[i]<menor:
         menor=numeros[i]
-print("El numero maximo ingresado es:  " + str(max) + "  -  " + "El numero minimo ingresado es:  "+ str(menor))
+print("El numero maximo ingresado es:  " + str(max) + "  -  " + "El numero minimo ingresado es:  "+ str(menor))"""
 
+
+
+
+"""EJERCICIO 4
+
+Crea una tupla con valores ya predefinidos del 1 al 10, pide al usuario un índice por teclado y
+muestra los valores de la tupla.
+
+RESUELVE el caso en que no exista ese índice en la tupla.
+"""
+
+tupla=(1,2,3,4,5,6,7,8,9,10)
+
+
+while 1: 
+    indice=int(input("Ingres un indice del 1 al 10:  "))
+    if indice<0 or (indice>9):
+        print("indice fuera de parametros")
+    else:
+        print(tupla[indice])
 
