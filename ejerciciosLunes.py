@@ -10,8 +10,8 @@ while num != 0:
     if num > 12:
         print("Error Solo hay 12 meses en un año")
     for i in meses:
-        if meses.index(i) == (num):
-            print(i)
+        if meses.index[i] == (num):
+            print[i]
 print("Fin del programa")    """
 
 
@@ -37,8 +37,17 @@ while 1:
 
 Crea una tupla con números e indica el numero con mayor valor y el que menor tenga."""
 
-numeros=(1,5,6,9,4,2,3,7,8,10,23,21,40,39,50)
+numeros=(1,5,6,9,4,2,3,7,8,10,23,21,-40,39,50,200)
 mayor=0
 menor=0
-for i in numeros:
-    
+for i in range(0,len(numeros)):
+    if i==0:
+        max=numeros[i]
+        menor=numeros[i]
+    if numeros[i]>max:
+        max=numeros[i]
+    if numeros[i]<menor:
+        menor=numeros[i]
+print("El numero maximo ingresado es:  " + str(max) + "  -  " + "El numero minimo ingresado es:  "+ str(menor))
+
+
