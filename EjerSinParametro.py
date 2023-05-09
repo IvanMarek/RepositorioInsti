@@ -10,7 +10,7 @@ def randomOne ():
         lista.append(num)
         cont += 1
     print(lista)
-
+randomOne()
 
 
 def lecturaLista ():
@@ -26,6 +26,7 @@ def lecturaLista ():
     print("Los numeros pares son:" + str(lista_par))
     print("Los numeros impares son:" + str(lista_impar))
 
+lecturaLista()
 
 def listaDivisores():
 
@@ -48,14 +49,15 @@ def textoXD ():
 textoXD ()
 
 def multiplisdelUnoalNueve():
-    listaMultiplos=[]
     multiplos=0
-    listanum=[1,2,3,4,5,6,7,8,9]
-    cont=1
-    for i in range(0,len(listanum)):
-        multiplos= listanum[1] * cont
-        listaMultiplos.append(multiplos)
-        print(cont + " X " + listanum[i] + " = " + )
-        cont+=1
-
+    listanum=[1,2,3,4,5,6,7,8,9,10]
+    for i in listanum:
+        cont=1
+        listaMultiplos=[]
+        for k in range(0,10):
+            multiplos= i * cont
+            listaMultiplos.append(multiplos)
+            cont+=1
+        print("Las tablas del:  " + str(i) +"\n" +str(listaMultiplos))
 multiplisdelUnoalNueve()
+
