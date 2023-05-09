@@ -1,6 +1,6 @@
 import random
 
-def suma(a,b,c):
+"""def suma(a,b,c):
   suma=0
   suma= a+b+c
   return(suma)
@@ -53,12 +53,21 @@ def construirUnaMatriz(filas, columnas):
         msj= msj + "\n"
     print(msj)
 
-construirUnaMatriz(5,5)
+construirUnaMatriz(5,5)"""
 
-"""def matrizConAgenda(filas,columnas,cantClientes):
-
-
-
-
-
-matrizConAgenda(5,5,3)"""
+def mayorMenor(contador):
+    num=0
+    cont=0
+    while cont<contador:
+        num=int(input("Ingresa un numero:  "))
+        if cont==0:
+            max=num
+            menor=num
+        if num>max:
+            max=num
+        if num<menor:
+            menor=num
+        cont+=1
+    print("El numero maximo ingresado es:  " + str(max) + "  -  " + "El numero minimo ingresado es:  "+ str(menor))
+    
+mayorMenor(7)
