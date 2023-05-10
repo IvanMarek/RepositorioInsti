@@ -3,7 +3,7 @@ longitud máxima de la tupla, muestra el contenido de esa posición sino muestra
 error.
 El programa termina cuando el usuario introduce un cero."""
 
-meses=("","enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto","septiembre", "octubre" ,"noviembre", "diciembre")
+"""meses=("","enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto","septiembre", "octubre" ,"noviembre", "diciembre")
 num=1
 while num != 0: 
     num= int(input("Escriba un numero:  "))
@@ -16,12 +16,12 @@ print("Fin del programa")
 
 
 
-"""EJERCICIO 2
+EJERCICIO 2
 
 Crea una tupla con números, pide al usuario un número por teclado e indica cuantas veces se
 repite según lo halle en la tupla que has creado.
 
-RESUELVE validar los ingresos del usuario."""
+RESUELVE validar los ingresos del usuario.
 
 numeros=(1,5,6,9,9,9,4,2,4,6,3,1,7,8,7,8,10,10,9)
 while 1:
@@ -33,9 +33,9 @@ while 1:
 
 
 
-"""EJERCICIO 3
+EJERCICIO 3
 
-Crea una tupla con números e indica el numero con mayor valor y el que menor tenga."""
+Crea una tupla con números e indica el numero con mayor valor y el que menor tenga.
 
 numeros=(1,5,6,9,4,2,3,7,8,10,23,21,-40,39,50,200)
 mayor=0
@@ -50,7 +50,7 @@ for i in range(0,len(numeros)):
         menor=numeros[i]
 print("El numero maximo ingresado es:  " + str(max) + "  -  " + "El numero minimo ingresado es:  "+ str(menor))
 
-
+"""
 
 
 """EJERCICIO 4
