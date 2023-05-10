@@ -1,6 +1,6 @@
 import random
 
-"""def suma(a,b,c):
+def suma(a,b,c):
     suma=0
     suma= a+b+c
     return(suma)
@@ -56,7 +56,7 @@ def construirUnaMatriz(filas, columnas):
         msj= msj + "\n"
     print(msj)
 
-construirUnaMatriz(filas=int(input("Ingresa la cantidad de filas:  ")), columnas=int(input("ingresa la cantidad de columnas:  ")))"""
+construirUnaMatriz(filas=int(input("Ingresa la cantidad de filas:  ")), columnas=int(input("ingresa la cantidad de columnas:  ")))
 
 def mayorMenor(contador):
     
@@ -73,6 +73,6 @@ def mayorMenor(contador):
             menor=num
         cont+=1
     print(f"""El numero maximo ingresado es:  {max} 
-El numero minimo es:  {menor}""" )
+El numero minimo es:  {menor} """)
 print("Ejercicio MayorMenor")    
 mayorMenor(contador=int(input("Ingresa la cantidad de numeros que quieras verificar:  ")))
