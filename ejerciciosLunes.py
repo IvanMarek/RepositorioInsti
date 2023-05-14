@@ -70,4 +70,3 @@ while 1:
     else:
         print(tupla[indice])
 
-"""hola q hace"""
