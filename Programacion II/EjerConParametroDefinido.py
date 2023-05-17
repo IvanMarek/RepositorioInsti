@@ -32,6 +32,9 @@ delta(4,-2)"""
     return salida
 
 print (listaModificable (["apellido","nacionalindad", ""]))"""
+
+
+"""faltan 2 funciones estan en proceso :( """
  
 
 
