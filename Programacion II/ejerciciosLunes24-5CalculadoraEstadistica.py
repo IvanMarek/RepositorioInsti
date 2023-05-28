@@ -25,13 +25,13 @@ num=input("Ingrese una lista de numeros separados por espacios:  ")
 listaNum= num.split() #genera una lista a partir de string separando los elementos por espacios.
 print(listaNum)
 
-for i in range(0,len(listaNum)): # recorro la lista y convierto los elementos en numeros enteros para poder operar con ellos...
+for i in range(0,len(listaNum)): # recorre la lista y convierto los elementos en numeros enteros para poder operar con ellos...
     listaNum[i]=int(listaNum[i])
 
 menor=listaNum[0]
 mayor=listaNum[0]
 
-for i in listaNum: #recorro la lista e identifica el numero mayor y menor
+for i in listaNum: #recorre la lista e identifica el numero mayor y menor
     if i>mayor:
         mayor=i
     if i<menor:
