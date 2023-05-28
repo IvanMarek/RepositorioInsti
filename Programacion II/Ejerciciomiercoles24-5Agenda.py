@@ -4,7 +4,7 @@ programa debe permitir al usuario almacenar nombres y números de teléfono en u
 diccionario, así como buscar, agregar y eliminar contactos. Debe mostrar un menú con las
 siguientes opciones:
 """
-
+import os
 def repetir(texto):
     num = input
     flag = True
