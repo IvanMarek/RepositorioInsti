@@ -22,50 +22,50 @@ promedio=0
 cantidadNum=0
 
 num=input("Ingrese una lista de numeros separados por espacios:  ")
-listaNum= num.split()
+listaNum= num.split() #genera una lista a partir de string separando los elementos por espacios.
 print(listaNum)
 
-for i in range(0,len(listaNum)):
+for i in range(0,len(listaNum)): # recorro la lista y convierto los elementos en numeros enteros para poder operar con ellos...
     listaNum[i]=int(listaNum[i])
 
 menor=listaNum[0]
 mayor=listaNum[0]
 
-for i in listaNum:
+for i in listaNum: #recorro la lista e identifica el numero mayor y menor
     if i>mayor:
         mayor=i
     if i<menor:
         menor=i
     cantidadNum+=1
     suma+=i
-promedio= suma/cantidadNum
+promedio= suma/cantidadNum  #calcula el promedio de los numeros ingresados
 
 primerPasovarianza=0
 varianza=0
 listaVarianza=[]
 sumaTerminosVarianza=0 
 desviacion=0
-for i in listaNum: #primer paso de la varianza (numero - porcentaje)**2
+for i in listaNum: #primer paso de la varianza: calcular (numero - porcentaje)**2 y guardarlo en una lista para poder seguir calculando...
     primerPasovarianza= (i-promedio)**2
     listaVarianza.append(primerPasovarianza)
-for k in listaVarianza: #segundo paso de la varianza (la sumatoria de todos los terminos del primer paso...)
+for k in listaVarianza:   #segundo paso de la varianza: (la sumatoria de todos los terminos del primer paso (que estan guardados en la lista)...) y guardarlos en una variable...
     sumaTerminosVarianza+=k
-varianza=sumaTerminosVarianza/cantidadNum #tercer paso de la varianza (el total del segundo paso dividido la cantidad de numeros de la lista ingresada por el usuario...)
-desviacion= sqrt(varianza)
+varianza=sumaTerminosVarianza/cantidadNum  #tercer paso de la varianza: (el total de la sumatoria dividido por la cantidad de numeros de la lista ingresada por el usuario...)
+desviacion= sqrt(varianza)  # La desviacion es igual a la raiz cuadrada de la varianza...  podemos usar sqrt para resolver la raiz cuadrada o podemos... (el numero ** (1/2))
 
-print(suma)
+print(f"""
 
-print(promedio)
+La suma de los numeros es igual a:  {suma}
 
-print(f"""El numero mayor es: {mayor}
+El promedio de los numeros es:  {promedio}
 
-El numero menor es: {menor}
-      """)
-print(f""" {listaVarianza}
+El mayor de los numeros ingresados es:  {mayor}
 
-La suma de todos los terminos es: {sumaTerminosVarianza}
+El menor de los numeros ingresados es:  {menor}
 
-la varianza es: {varianza}
+La desviacion de los numeros es:  {desviacion}
 
-la deviacion es: {desviacion}
 """)
+
+
+
