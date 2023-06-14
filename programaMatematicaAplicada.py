@@ -63,7 +63,7 @@ def exacto(txt):
 
 
 
-def validar(txt):
+"""def validar(txt):
 
     flag = True
 
@@ -79,7 +79,7 @@ def validar(txt):
             print("valor ingresado no era una opcion valida. Por favor, vuelva a intentar")
             continue
 
-    return(resul)
+    return(resul)"""
 
 def validar_rango(txt,min,max):
 

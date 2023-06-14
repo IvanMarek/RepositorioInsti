@@ -1,6 +1,6 @@
 """
-Gestor de Contactos Crea un programa que funcione como un gestor de contactos. El
-programa debe permitir al usuario almacenar nombres y números de teléfono en un
+Gestor de Contactos Crea un programa que funcione como un gestor de contactos.
+El programa debe permitir al usuario almacenar nombres y números de teléfono en un
 diccionario, así como buscar, agregar y eliminar contactos. Debe mostrar un menú con las
 siguientes opciones:
 """
@@ -110,7 +110,7 @@ Bienvenido al menu: elija una opcion
             print ("usuario no encontrado")
             
         space = input("\nPrecione cualquier tecla para continuar:   ")
-        
+
 
     elif op == "4":
         msj = ""
