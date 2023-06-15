@@ -1,5 +1,7 @@
 import os
 from validaciones import validacionMenu
+from validaciones import validarCodProducto
+from validaciones import SumaralCarro
 
 
 
@@ -22,7 +24,8 @@ while True:
         msj= msj + f"""
     {i} | {productos[i]["Nombre"]} """
     print(msj)
-    continuar=input("   ")
+    continuar=input("""        Preciones enter para ingresar al menú     
+    """)
         
     print("""
         1. Buscar producto por código
@@ -37,6 +40,11 @@ while True:
     if opciones ==1:
         print("         Buscar producto por código:         ")
         codigoProduct= validarCodProducto(":   ", productos )
+
+        print("Desea añadir el producto al carro?. (1-SI,5-NO)")
+        op=SumaralCarro(" :    ")
+
+
 
 
 

@@ -20,7 +20,7 @@ def validacionMenu(msj,OpcionMin,OpcionMax):
     return(opcionCorrecta)
 
 
-def validarCodProducto(msj, productos ):
+def validarCodProducto(msj, productos):
     validar= True
     Codcorrecto=False
     while validar==True:
@@ -30,7 +30,6 @@ def validarCodProducto(msj, productos ):
                 codigoValido=i
                 Codcorrecto=True
         if Codcorrecto==True:
-
             print(f"""
                 
                 Producto encontrado: {productos[codigoValido]["Nombre"]}

@@ -6,7 +6,7 @@ def validacionMenu(msj,OpcionMin,OpcionMax):
 
     while bandera == True:
 
-        num=input(msj)
+        num=int(input(msj))
         try:
             if num <= OpcionMax and num >= OpcionMin:
                 bandera=False
@@ -20,28 +20,36 @@ def validacionMenu(msj,OpcionMin,OpcionMax):
     return(opcionCorrecta)
 
 
-def validarCodProducto(msj, productos{} ):
-    validar=True
+def validarCodProducto(msj, productos):
+    validar= True
+    Codcorrecto=False
     while validar==True:
-        validar= True
-        Codcorrecto=False
+        text="      Nombre       |        Marca        |        Precio         |        Stock        | "
         codProducto=input(msj)
-
         for i in productos:
-            if i==codProducto:
+            if codProducto==i:
+                codigoValido=i
                 Codcorrecto=True
         if Codcorrecto==True:
 
             print(f"""
-                  Producto encontrado: {Nombre}
+                    {text}
+Producto encontrado:     {productos[codigoValido]["Nombre"]}        {productos[codigoValido]["Marca"]}                 {productos[codigoValido]["Precio"]}                  {productos[codigoValido]["Stock"]}               
                   
                   """)
+        else:
+            print("Producto no encontrado. Ingrese nuevamente un código valido")
+
+    return()
+
+
+def SumaralCarro(msj):
+    validar=True
+    añadirCarro=False
+    while validar==True:
+        op=input(msj)
+        if op ==1 or op==5:
+            
 
 
 
-
-
-
-
-
-    return
