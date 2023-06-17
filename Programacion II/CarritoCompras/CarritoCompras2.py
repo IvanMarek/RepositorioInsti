@@ -2,6 +2,7 @@ import os
 from validaciones import validacionMenu
 from validaciones import validarCodProducto
 from validaciones import SumaralCarro
+from validaciones import OpcionesSi_No
 
 
 while True:
@@ -36,9 +37,18 @@ while True:
     if opciones ==1:
         print("         Buscar producto por código o nombre:         ")
         codigoProduct= validarCodProducto(":   ", productos )
-
+        
         print("Desea añadir el producto al carro?. (1-SI,5-NO)")
-        op=SumaralCarro(" :    ")
+        op=OpcionesSi_No(" :    ")
+
+        cantidadProducto=int(input("    Ingresar la cantidad del producto que desea:   "))
+        for i in productos:
+            if cantidadProducto <= productos[i]["Stock"]:
+                reducirStock= productos[i]["Stock"] - cantidadProducto
+                productos[i]["Stock"]= reducirStock
+
+    continuar=input("""       Presionar enter para continuar:      
+    """)
 
 
 
