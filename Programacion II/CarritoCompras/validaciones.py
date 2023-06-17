@@ -51,17 +51,21 @@ def SumaralCarro(msj, productos):
     while validar==True:
         op=input(msj)
         try:
+            op= int(op)
             if op ==1:
                 añadirCarro=True
+                
                 #seleccionar cantidad de productos...
                 #cargar producto a un nuevo diccionario llamado carro...
                 #que guarde nombre  cantidad  precioUnitario Subtotal...
                 #Preguntar¿? Desea seguir añadiendo productos? si-no? (si) volver a busqueda de productos... (NO) desea realizar compra?...
                 #Si desea realizar compra enviar a ver carrito...
             if op==5:
+                
                 #limpiar pantalla y devolver al menu principal...
                 pass
         except ValueError:
+            print("Opcion incorrecta, Ingrese una opción valida")
             pass
             
 
