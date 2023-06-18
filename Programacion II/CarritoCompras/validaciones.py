@@ -26,43 +26,43 @@ def validarCodProducto(msj, productos):
     Codcorrecto=False
     while validar==True:
         text="      Nombre       |        Marca        |        Precio         |        Stock        | "
-        codProducto=input(msj)
+        codProducto= input(msj).lower()
         for i in productos:
-            if codProducto==i or codProducto==productos[i]["Nombre"]:
+            if codProducto==i or codProducto==(productos[i]["Nombre"]).lower():
                 codigoValido=i
                 Codcorrecto=True
         if Codcorrecto==True:
 
             print(f"""
                     {text}
-Producto encontrado:     {productos[codigoValido]["Nombre"]}        {productos[codigoValido]["Marca"]}                 {productos[codigoValido]["Precio"]}                  {productos[codigoValido]["Stock"]}               
+Producto encontrado:     {productos[codigoValido]["Nombre"]}        {productos[codigoValido]["Marca"]}               {productos[codigoValido]["Precio"]}                     {productos[codigoValido]["Stock"]}               
                   
                   """)
             break
         else:
             print("Producto no encontrado. Ingrese nuevamente un código valido")
 
-    return(codigoValido, Codcorrecto)
+    return(codigoValido)
 
 
 def OpcionesSi_No(msj):
     validar=True
-    Si=0
     while validar==True:
         op=input(msj)
         try:
             op=int(op)
             if op==1:
                 Si=op
-                continue
+                return(Si)
             elif op==5:
                 os.system("cls")
-                break
+                No=op
+                return(No)
             else:
                 print("Opcion incorrecta, Ingrese una opción valida")
         except ValueError:
             print("Opcion incorrecta, Ingrese una opción valida")
-    return(Si)
+    
 
 
 
@@ -90,6 +90,7 @@ def SumaralCarro(msj, productos, codigoValido):
             #que guarde nombre  cantidad  precioUnitario Subtotal...
             #Preguntar¿? Desea seguir añadiendo productos? si-no? (si) volver a busqueda de productos... (NO) desea realizar compra?...
             #Si desea realizar compra enviar a ver carrito...
+            #Mostrar carrito... (mostrar diccionario) y un subtotal general entre todos los productos....
         
     return(opcionValida) 
 

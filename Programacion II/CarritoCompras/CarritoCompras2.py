@@ -4,9 +4,7 @@ from validaciones import validarCodProducto
 from validaciones import SumaralCarro
 from validaciones import OpcionesSi_No
 
-
-while True:
-    productos={
+productos={
     "2462":{"Nombre": "Salame fino", "Marca": "Trimoleti", "Precio": 1300, "Stock": 11},
     "2466":{"Nombre":"Salame grueso" , "Marca": "Trimoleti", "Precio": 1500,"Stock": 9},
     "2351":{"Nombre":"Queso barra", "Marca":"La Paulina","Precio":1800, "Stock": 15},
@@ -16,6 +14,8 @@ while True:
     "1963":{"Nombre":"Jamon crudo", "Marca":"Piamontesa" , "Precio": 2100, "Stock":10 },
     "1965":{"Nombre":"Jamon cocido", "Marca":"Tres Cruces" , "Precio": 2200 , "Stock": 14}    
            }
+while True:
+    
     msj="  Codigo | Nombre"
     for i in productos:
         msj= msj + f"""
@@ -41,11 +41,25 @@ while True:
         print("Desea añadir el producto al carro?. (1-SI,5-NO)")
         op=OpcionesSi_No(" :    ")
 
-        cantidadProducto=int(input("    Ingresar la cantidad del producto que desea:   "))
-        for i in productos:
-            if cantidadProducto <= productos[i]["Stock"]:
-                reducirStock= productos[i]["Stock"] - cantidadProducto
-                productos[i]["Stock"]= reducirStock
+        if op==1:
+            cantidad=True
+            while cantidad==True:
+                cantidadProducto=int(input("    Ingresar la cantidad del producto que desea:   "))
+                validarop=False
+                if cantidadProducto <= productos[codigoProduct]["Stock"]:
+                    reducirStock= productos[codigoProduct]["Stock"] - cantidadProducto
+                    productos[codigoProduct]["Stock"]= reducirStock
+                    print(productos[codigoProduct])
+                    break
+                elif cantidadProducto > productos[codigoProduct]["Stock"] and productos[codigoProduct]["Stock"] !=0:
+                    print(f"""
+                    No contamos con la cantidad indicada, 
+                    Contamos con {productos[codigoProduct]["Stock"]} Unidad\es del producto {productos[codigoProduct]["Nombre"]},
+                    """)
+                else:
+                    print("          Producto sin stock         ")
+                    break
+        
 
     continuar=input("""       Presionar enter para continuar:      
     """)
