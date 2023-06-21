@@ -1,7 +1,8 @@
 import os
 from validaciones import validacionMenu
 from validaciones import validarCodProducto
-from validaciones import SumaralCarro
+from validaciones import imprimir_productos
+#from validaciones import SumaralCarro
 from validaciones import OpcionesSi_No
 
 productos={
@@ -15,13 +16,11 @@ productos={
     "1965":{"Nombre":"Jamon cocido", "Marca":"Tres Cruces" , "Precio": 2200 , "Stock": 14}    
            }
 while True:
-    
-    msj="  Codigo | Nombre"
-    for i in productos:
-        msj= msj + f"""
-    {i} | {productos[i]["Nombre"]} """
-    print(msj)
-    continuar=input("""        Preciones enter para ingresar al menú     
+    MostrarProductos=imprimir_productos(productos)
+
+
+    continuar=input("""
+                    Preciones enter para ingresar al menú     
     """)
         
     print("""
@@ -59,9 +58,10 @@ while True:
                 else:
                     print("          Producto sin stock         ")
                     break
+                
         
-
-    continuar=input("""       Presionar enter para continuar:      
+    continuar=input("""
+                  Presionar enter para continuar:      
     """)
 
 

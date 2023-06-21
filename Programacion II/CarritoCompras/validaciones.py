@@ -1,5 +1,20 @@
 import os
 
+def imprimir_productos(productos):
+    
+   
+    print("    Código  |        Nombre        |        Marca         |  Precio   |  Stock    |")
+    print("-------------------------------------------------------------------------------")
+    for codigo, detalles in productos.items():
+        nombre = detalles["Nombre"]
+        marca = detalles["Marca"]
+        precio = detalles["Precio"]
+        stock = detalles["Stock"]
+
+        # Utilizamos la función format() para establecer el ancho fijo de cada columna
+        print(" {:<10} |  {:<20}|  {:<20}| ${:<9}| {:<10}|".format(codigo, nombre, marca, precio, stock))
+
+
 def validacionMenu(msj,OpcionMin,OpcionMax):
 
     bandera=True
@@ -25,19 +40,21 @@ def validarCodProducto(msj, productos):
     validar= True
     Codcorrecto=False
     while validar==True:
-        text="      Nombre       |        Marca        |        Precio         |        Stock        | "
+        text="    Código  |        Nombre        |        Marca         |  Precio   |  Stock    |"
         codProducto= input(msj).lower()
         for i in productos:
             if codProducto==i or codProducto==(productos[i]["Nombre"]).lower():
                 codigoValido=i
                 Codcorrecto=True
         if Codcorrecto==True:
-
-            print(f"""
-                    {text}
-Producto encontrado:     {productos[codigoValido]["Nombre"]}        {productos[codigoValido]["Marca"]}               {productos[codigoValido]["Precio"]}                     {productos[codigoValido]["Stock"]}               
-                  
-                  """)
+            for codigo, detalles in productos.items():
+                nombre = detalles["Nombre"]
+                marca = detalles["Marca"]
+                precio = detalles["Precio"]
+                stock = detalles["Stock"]
+            print(text)
+            ("-------------------------------------------------------------------------------")
+            print("    {:<7} |    {:<18}|    {:<18}| ${:<9}| {:<10}|".format(codigo, nombre, marca, precio, stock))
             break
         else:
             print("Producto no encontrado. Ingrese nuevamente un código valido")
@@ -64,13 +81,7 @@ def OpcionesSi_No(msj):
             print("Opcion incorrecta, Ingrese una opción valida")
     
 
-
-
-def SumaralCarro(msj,productos,codigovalido):
-
-    return
-pass
-
+"""       VolVier a hacer:
 
 def SumaralCarro(msj, productos, codigoValido):
     validar=True
@@ -92,51 +103,4 @@ def SumaralCarro(msj, productos, codigoValido):
             #Si desea realizar compra enviar a ver carrito...
             #Mostrar carrito... (mostrar diccionario) y un subtotal general entre todos los productos....
         
-    return(opcionValida) 
-
-
-
-
-
-
-
-
-
-"""def SumaralCarro(msj, productos, codigoValido):
-    validar=True
-    añadirCarro=False
-    cantidadProducto=0
-    ProductosEnCarrito={}
-    reducirStock=0
-    while validar==True:
-        op=input(msj)
-        try:
-            op= int(op)
-            if op ==1:
-                añadirCarro=True
-                opcionValida=op
-            
-            if añadirCarro == True:
-                cantidadProducto=int(input("    Ingresar la cantidad del producto que desea:   "))
-                for i in productos:
-                    if cantidadProducto <= productos[i]["Stock"]:
-                        reducirStock= productos[i]["Stock"] - cantidadProducto
-                        productos[i]["Stock"]= reducirStock
-                #seleccionar cantidad de productos...
-                #cargar producto a un nuevo diccionario llamado carro...
-                #que guarde nombre  cantidad  precioUnitario Subtotal...
-                #Preguntar¿? Desea seguir añadiendo productos? si-no? (si) volver a busqueda de productos... (NO) desea realizar compra?...
-                #Si desea realizar compra enviar a ver carrito...
-            if op==5:
-                os.system("cls")
-                break
-
-                #limpiar pantalla y devolver al menu principal...
-                pass
-        except ValueError:
-            print("Opcion incorrecta, Ingrese una opción valida")
-
     return(opcionValida)"""
-          
-
-
