@@ -42,13 +42,29 @@ while True:
 
         if op==1:
             cantidad=True
+            carrito={}
             while cantidad==True:
                 cantidadProducto=int(input("    Ingresar la cantidad del producto que desea:   "))
                 validarop=False
                 if cantidadProducto <= productos[codigoProduct]["Stock"]:
                     reducirStock= productos[codigoProduct]["Stock"] - cantidadProducto
                     productos[codigoProduct]["Stock"]= reducirStock
-                    print(productos[codigoProduct])
+                    print(f"""
+                    Muestra la reduccion del stock en el diccionario...
+
+                    {productos[codigoProduct]}
+                    
+                    """)
+                    cantidad=True
+                    if cantidad==True:
+                        productos[codigoProduct]["Stock"]= cantidadProducto
+                        carrito['Producto']=productos[codigoProduct]
+                        print(f"""
+                    Muestra el producto guardado en el nuevo diccionario de carrito y la cantidad del mismo q compro el cliente...
+
+                    {carrito}
+
+                    """)
                     break
                 elif cantidadProducto > productos[codigoProduct]["Stock"] and productos[codigoProduct]["Stock"] !=0:
                     print(f"""
@@ -58,6 +74,7 @@ while True:
                 else:
                     print("          Producto sin stock         ")
                     break
+                
                 
         
     continuar=input("""
