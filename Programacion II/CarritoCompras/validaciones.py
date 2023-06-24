@@ -2,9 +2,9 @@ import os
 
 def imprimir_productos(productos):
     
-   
-    print("{:^10}|{:^20}|{:^20}|{:^9}|{:^10}|".format("Código","Nombre", "Marca", "Precio", "Stock"))
-    print("--------------------------------------------------------------------------")
+    print("+-------------------------------------------------------------------------+")
+    print("|{:^10}|{:^20}|{:^20}|{:^9}|{:^10}|".format("Código","Nombre", "Marca", "Precio", "Stock"))
+    print("|-------------------------------------------------------------------------|")
     for codigo, detalles in productos.items():
         nombre = detalles["Nombre"]
         marca = detalles["Marca"]
@@ -12,7 +12,8 @@ def imprimir_productos(productos):
         stock = detalles["Stock"]
 
         # Utilizamos la función format() para establecer el ancho fijo de cada columna
-        print("{:^10}|{:^20}|{:^20}|{:^9}|{:^10}|".format(codigo, nombre, marca, "$"+str(precio), stock))
+        print("|{:^10}|{:^20}|{:^20}|{:^9}|{:^10}|".format(codigo, nombre, marca, "$"+str(precio), stock))
+    print("+-------------------------------------------------------------------------+")
 
 
 def validacionMenu(msj,OpcionMin,OpcionMax):
@@ -52,9 +53,11 @@ def validarCodProducto(msj, productos):
                     marca = detalles["Marca"]
                     precio = detalles["Precio"]
                     stock = detalles["Stock"]
+            print("-----------------------------------------------------------------")
             print(text)
             print("-----------------------------------------------------------------")
             print("|{:^20}|{:^20}|{:^10}|{:^10}|".format( nombre, marca, "$"+str(precio), stock))
+            print("-----------------------------------------------------------------")
             break
         else:
             print("Producto no encontrado. Ingrese nuevamente un código válido")
@@ -108,6 +111,7 @@ def mostrarCarrito(carrito):
     total=0
     print("{:^80}".format("TU CARRO DE LA COMPRAS"))
     texto=("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( "Nombre", "Marca", "Precio x Unidad", "Cantidad","Subtotal"))
+    print("--------------------------------------------------------------------------------------------------------------------")
     print(texto)
     print("--------------------------------------------------------------------------------------------------------------------")
     for codigo,detalles in carrito.items():
@@ -118,10 +122,9 @@ def mostrarCarrito(carrito):
         subtotal = detalles["Subtotal"]
         total+=subtotal
         print("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( nombre, marca, "$"+str(precio), cantidad, "$"+str(subtotal)))
-    print("""
-    
---------------------------------------------------------------------------------------------------------------------""")
+    print("""--------------------------------------------------------------------------------------------------------------------""")
     print("|{:>114}|".format("$"+str(total)))
+    print("--------------------------------------------------------------------------------------------------------------------")
 
    
 
@@ -168,6 +171,3 @@ def eliminiarProductoCarro(carrito, codigoProductEliminar, productos):
     
 def finalizarCompra(carrito):
     carrito.clear()
-
-
-
