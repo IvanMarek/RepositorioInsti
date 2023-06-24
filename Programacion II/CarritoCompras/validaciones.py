@@ -3,7 +3,7 @@ import os
 def imprimir_productos(productos):
     
    
-    print("{:^10}|{:^20}|{:^20}|{:^9}|{:^10}|".format("Codigo","Nombre", "Marca", "Precio", "Stock"))
+    print("{:^10}|{:^20}|{:^20}|{:^9}|{:^10}|".format("Código","Nombre", "Marca", "Precio", "Stock"))
     print("--------------------------------------------------------------------------")
     for codigo, detalles in productos.items():
         nombre = detalles["Nombre"]
@@ -28,9 +28,9 @@ def validacionMenu(msj,OpcionMin,OpcionMax):
                 bandera=False
                 opcionCorrecta=num
             else:
-                print("Opcion incorrecta, Ingrese una opción valida")
+                print("Opción incorrecta, Ingrese una opción valida")
         except ValueError:
-            print("Opcion incorrecta, Ingrese una opción valida")
+            print("Opción incorrecta, Ingrese una opción valida")
         continue
 
     return(opcionCorrecta)
@@ -57,7 +57,7 @@ def validarCodProducto(msj, productos):
             print("|{:^20}|{:^20}|{:^10}|{:^10}|".format( nombre, marca, "$"+str(precio), stock))
             break
         else:
-            print("Producto no encontrado. Ingrese nuevamente un código valido")
+            print("Producto no encontrado. Ingrese nuevamente un código válido")
 
     return(codigoValido)
 
@@ -76,9 +76,9 @@ def OpcionesSi_No(msj):
                 No=op
                 return(No)
             else:
-                print("Opcion incorrecta, Ingrese una opción valida")
+                print("Opción incorrecta, Ingrese una opción válida")
         except ValueError:
-            print("Opcion incorrecta, Ingrese una opción valida")
+            print("Opción incorrecta, Ingrese una opción válida")
     
 def validarStock(msj,productos,codigoProduct):
     cantidad=True
@@ -89,34 +89,24 @@ def validarStock(msj,productos,codigoProduct):
             if cantidadProducto <= productos[codigoProduct]["Stock"] and cantidadProducto > 0:
                 reducirStock= productos[codigoProduct]["Stock"] - cantidadProducto
                 productos[codigoProduct]["Stock"]= reducirStock
-                print(f"""
-                Muestra la reduccion del stock en el diccionario...
-
-                {productos[codigoProduct]}
-                
-                """)
-                break
+                return(cantidadProducto)
             elif cantidadProducto > productos[codigoProduct]["Stock"] and productos[codigoProduct]["Stock"] !=0:
                 print(f"""
                 No contamos con la cantidad indicada, 
                 Contamos con {productos[codigoProduct]["Stock"]} Unidad\es del producto {productos[codigoProduct]["Nombre"]},
                 """)
-            elif cantidadProducto < 0:
-                print("Cantidad invalida, Ingrese una cantidad valida")
+            elif cantidadProducto < 0 or cantidadProducto == 0:
+                print("Cantidad inválida, Ingrese una cantidad válida")
             else:
                 print("          Producto sin stock         ")
-                break
+                return(False)
+
         except ValueError:
-            print("Cantidad invalida, Ingrese una cantidad valida")
-
-    return(cantidadProducto)
-
-
-
+            print("Cantidad inválida, Ingrese una cantidad válida")
 
 def mostrarCarrito(carrito):
     total=0
-    print("{:^80}".format("TU CARRO DE LA COMPRA"))
+    print("{:^80}".format("TU CARRO DE LA COMPRAS"))
     texto=("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( "Nombre", "Marca", "Precio x Unidad", "Cantidad","Subtotal"))
     print(texto)
     print("--------------------------------------------------------------------------------------------------------------------")
@@ -144,7 +134,7 @@ def validarCodigoProducto(msj, carrito):
                 codigoValido=i
                 return(codigoValido)    
         else:
-            print("Producto no encontrado. Ingrese nuevamente un código valido")
+            print("Producto no encontrado. Ingrese nuevamente un código válido")
 
 def validarCantidad(msj,carrito, codigoProduct,productos):
     while True:
@@ -161,10 +151,10 @@ def validarCantidad(msj,carrito, codigoProduct,productos):
                 Tiene en el carro {carrito[codigoProduct]["CantidadCompra"]} Unidad\es del producto {carrito[codigoProduct]["Nombre"]},
                 """)
             elif cantidad <= 0:
-                print("Cantidad invalida, Ingrese una cantidad valida")
+                print("Cantidad inválida, Ingrese una cantidad válida")
                 break
         except ValueError:
-            print("Cantidad invalida, Ingrese una cantidad valida")
+            print("Cantidad inválida, Ingrese una cantidad válida")
     return(cantidad)
 
 
@@ -173,20 +163,11 @@ def eliminiarProductoCarro(carrito, codigoProductEliminar, productos):
         cantidadRetorno=carrito[codigoProductEliminar]["CantidadCompra"]
         productos[codigoProductEliminar]["Stock"]+= cantidadRetorno
         del carrito[codigoProductEliminar]
-        print(f"""
-                    Muestra carrito luego de eliminar
+        print("El producto fue eliminado correctamente de su carro")
 
-                    {carrito}
-
-                    """)
-        print("El producto fue eliminado correctamente de su carrito")
-
-        return
     
 def finalizarCompra(carrito):
     carrito.clear()
-
-    return(carrito)
 
 
 
