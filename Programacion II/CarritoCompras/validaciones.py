@@ -108,24 +108,27 @@ def validarStock(msj,productos,codigoProduct):
             print("Cantidad inválida, Ingrese una cantidad válida")
 
 def mostrarCarrito(carrito):
-    total=0
-    print("{:^80}".format("TU CARRO DE LA COMPRAS"))
-    texto=("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( "Nombre", "Marca", "Precio x Unidad", "Cantidad","Subtotal"))
-    print("--------------------------------------------------------------------------------------------------------------------")
-    print(texto)
-    print("--------------------------------------------------------------------------------------------------------------------")
-    for codigo,detalles in carrito.items():
-        nombre = detalles["Nombre"]
-        marca = detalles["Marca"]
-        precio = detalles["Precio"]
-        cantidad = detalles["CantidadCompra"]
-        subtotal = detalles["Subtotal"]
-        total+=subtotal
-        print("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( nombre, marca, "$"+str(precio), cantidad, "$"+str(subtotal)))
-    print("""--------------------------------------------------------------------------------------------------------------------""")
-    print("|{:>114}|".format("$"+str(total)))
-    print("--------------------------------------------------------------------------------------------------------------------")
-
+    if len(carrito)>0:
+        total=0
+        print("{:^80}".format("TU CARRO DE LA COMPRAS"))
+        texto=("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( "Nombre", "Marca", "Precio x Unidad", "Cantidad","Subtotal"))
+        print("--------------------------------------------------------------------------------------------------------------------")
+        print(texto)
+        print("--------------------------------------------------------------------------------------------------------------------")
+        for codigo,detalles in carrito.items():
+            nombre = detalles["Nombre"]
+            marca = detalles["Marca"]
+            precio = detalles["Precio"]
+            cantidad = detalles["CantidadCompra"]
+            subtotal = detalles["Subtotal"]
+            total+=subtotal
+            print("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( nombre, marca, "$"+str(precio), cantidad, "$"+str(subtotal)))
+        print("""--------------------------------------------------------------------------------------------------------------------""")
+        print("|{:>114}|".format("$"+str(total)))
+        print("--------------------------------------------------------------------------------------------------------------------")
+    else:
+        print("         Su carro de compras esta vacío...  \n\n\n")
+        return(False)
    
 
 

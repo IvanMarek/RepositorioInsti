@@ -4,7 +4,7 @@ from validaciones import *
 
 carrito={}
 subTotal=0
-
+CarritoBandera=True
 productos={
     "2462":{"Nombre": "Salame fino", "Marca": "Trimoleti", "Precio": 1300, "Stock": 11},
     "2466":{"Nombre":"Salame grueso" , "Marca": "Trimoleti", "Precio": 1500,"Stock": 9},
@@ -57,72 +57,74 @@ while True:
                         Presionar enter para continuar     
                   """)
     if opciones==2:
-        mostrarCarrito(carrito)
-        print("""
-1. Modificar cantidad de un producto
-2. Eliminar producto del carro de compras
-3. Finalizar compra
-4. Regresar al menú principal
-""")
-        opciones= validacionMenu(":    ",1,4)
-        if opciones==1:
-            print("\nIngrese el código o nombre del producto que desea modificar la cantidad\n")
-            codigoProduct= validarCodigoProducto(" :   ", carrito)
-            print(carrito[codigoProduct])
+        CarritoBandera=mostrarCarrito(carrito)
+        if CarritoBandera!=False:
 
-            op=OpcionesSi_No("¿Realmente desea modificar este producto?   (1-SI,5-NO) \n:  ")
-            if op==1:
-                cantidad_actualizada=validarCantidad("Ingresar la cantidad de producto que desea modificar(recuerde que esta opción es para reducir la cantidad del producto seleccionado):\n:     ", carrito, codigoProduct, productos)
+            print("""
+    1. Modificar cantidad de un producto
+    2. Eliminar producto del carro de compras
+    3. Finalizar compra
+    4. Regresar al menú principal
+    """)
+            opciones= validacionMenu(":    ",1,4)
+            if opciones==1:
+                print("\nIngrese el código o nombre del producto que desea modificar la cantidad\n")
+                codigoProduct= validarCodigoProducto(" :   ", carrito)
+                print(carrito[codigoProduct])
 
-            if op==5:
+                op=OpcionesSi_No("¿Realmente desea modificar este producto?   (1-SI,5-NO) \n:  ")
+                if op==1:
+                    cantidad_actualizada=validarCantidad("Ingresar la cantidad de producto que desea modificar(recuerde que esta opción es para reducir la cantidad del producto seleccionado):\n:     ", carrito, codigoProduct, productos)
+
+                if op==5:
+                    os.system("cls")
+                    pass
+                    continuar=input("""
+                            Presionar enter para volver al menú principal     
+                    """)
+                    
+            if opciones==2:
+                print("\nIngrese el código o nombre del producto que desea eliminar:\n")
+                codigoProductEliminar= validarCodigoProducto(" :   ", carrito)
+                print(carrito[codigoProductEliminar])
+                op=OpcionesSi_No("¿Realmente desea eliminar este producto?   \n(1-SI,5-NO) \n:  ")
+                if op==1:
+                    eliminar=eliminiarProductoCarro(carrito,codigoProductEliminar,productos)
+                    continuar=input("""
+                            Presionar enter para volver al menú principal     
+                    """)
+                if op==5:
+                    os.system("cls")
+                    pass
+                    continuar=input("""
+                            Presionar enter para volver al menú principal     
+                    """)
+
+            if opciones==3:
+                carro=mostrarCarrito(carrito)
+                op=OpcionesSi_No("¿Realmente desea realizar la compra?   \n(1-SI,5-NO) \n:  ")
+                if op==1:
+                    borrarCarro=finalizarCompra(carrito)
+                    os.system("cls")
+                    print("""
+                            Muchas gracias por su compra
+                            
+                            
+                            """)
+                    
+                if op==5:
+                    os.system("cls")
+                    pass
+                    continuar=input("""
+                            Presionar enter para volver al menú principal     
+                    """)
+                    
+            if opciones==4:
                 os.system("cls")
                 pass
                 continuar=input("""
-                        Presionar enter para volver al menú principal     
-                  """)
-                
-        if opciones==2:
-            print("\nIngrese el código o nombre del producto que desea eliminar:\n")
-            codigoProductEliminar= validarCodigoProducto(" :   ", carrito)
-            print(carrito[codigoProductEliminar])
-            op=OpcionesSi_No("¿Realmente desea eliminar este producto?   \n(1-SI,5-NO) \n:  ")
-            if op==1:
-                eliminar=eliminiarProductoCarro(carrito,codigoProductEliminar,productos)
-                continuar=input("""
-                        Presionar enter para volver al menú principal     
-                  """)
-            if op==5:
-                os.system("cls")
-                pass
-                continuar=input("""
-                        Presionar enter para volver al menú principal     
-                  """)
-
-        if opciones==3:
-            carro=mostrarCarrito(carrito)
-            op=OpcionesSi_No("¿Realmente desea realizar la compra?   \n(1-SI,5-NO) \n:  ")
-            if op==1:
-                borrarCarro=finalizarCompra(carrito)
-                os.system("cls")
-                print("""
-                        Muchas gracias por su compra
-                        
-                        
-                        """)
-                
-            if op==5:
-                os.system("cls")
-                pass
-                continuar=input("""
-                        Presionar enter para volver al menú principal     
-                  """)
-                
-        if opciones==4:
-            os.system("cls")
-            pass
-            continuar=input("""
-                        Presionar enter para volver al menú principal     
-                  """)
+                            Presionar enter para volver al menú principal     
+                    """)
     if opciones==3:
         os.system("cls")
         print("""
