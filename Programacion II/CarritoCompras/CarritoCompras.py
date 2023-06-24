@@ -6,11 +6,11 @@ carrito={}
 subTotal=0
 
 productos={
-    "2462":{"Nombre": "Salame fino", "Marca": "Trimoleti", "Precio": 1300.86, "Stock": 11},
-    "2466":{"Nombre":"Salame grueso" , "Marca": "Trimoleti", "Precio": 1500.46,"Stock": 9},
-    "2351":{"Nombre":"Queso barra", "Marca":"La Paulina","Precio":1800.60, "Stock": 15},
+    "2462":{"Nombre": "Salame fino", "Marca": "Trimoleti", "Precio": 1300, "Stock": 11},
+    "2466":{"Nombre":"Salame grueso" , "Marca": "Trimoleti", "Precio": 1500,"Stock": 9},
+    "2351":{"Nombre":"Queso barra", "Marca":"La Paulina","Precio":1800, "Stock": 15},
     "2353":{"Nombre":"Queso cremoso", "Marca":"Del Bueno" ,"Precio":2000 ,"Stock":12 },
-    "2236":{"Nombre":"Mortadela", "Marca":"Paladini" ,"Precio":1600.25 ,"Stock":20},    
+    "2236":{"Nombre":"Mortadela", "Marca":"Paladini" ,"Precio":1600 ,"Stock":20},    
     "1961":{"Nombre":"Jamón" ,"Marca": "Recreo","Precio":1700, "Stock": 9 },
     "1963":{"Nombre":"Jamón crudo", "Marca":"Piamontesa" , "Precio": 2100, "Stock":10 },
     "1965":{"Nombre":"Jamón cocido", "Marca":"Tres Cruces" , "Precio": 2200 , "Stock": 14}    
