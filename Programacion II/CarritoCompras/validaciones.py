@@ -4,7 +4,7 @@ def imprimir_productos(productos):
     
    
     print("{:^10}|{:^20}|{:^20}|{:^9}|{:^10}|".format("Codigo","Nombre", "Marca", "Precio", "Stock"))
-    print("-------------------------------------------------------------------------------")
+    print("--------------------------------------------------------------------------")
     for codigo, detalles in productos.items():
         nombre = detalles["Nombre"]
         marca = detalles["Marca"]
@@ -37,9 +37,8 @@ def validacionMenu(msj,OpcionMin,OpcionMax):
 
 
 def validarCodProducto(msj, productos):
-    validar= True
     Codcorrecto=False
-    while validar==True:
+    while True:
         text=("|{:^20}|{:^20}|{:^10}|{:^10}|".format( "Nombre", "Marca", "Precio", "Stock"))
         codProducto= input(msj).lower()
         for i in productos:
@@ -87,7 +86,7 @@ def validarStock(msj,productos,codigoProduct):
         cantidadProducto=input(msj)
         try:
             cantidadProducto=int(cantidadProducto)
-            if cantidadProducto <= productos[codigoProduct]["Stock"]:
+            if cantidadProducto <= productos[codigoProduct]["Stock"] and cantidadProducto > 0:
                 reducirStock= productos[codigoProduct]["Stock"] - cantidadProducto
                 productos[codigoProduct]["Stock"]= reducirStock
                 print(f"""
@@ -102,6 +101,8 @@ def validarStock(msj,productos,codigoProduct):
                 No contamos con la cantidad indicada, 
                 Contamos con {productos[codigoProduct]["Stock"]} Unidad\es del producto {productos[codigoProduct]["Nombre"]},
                 """)
+            elif cantidadProducto < 0:
+                print("Cantidad invalida, Ingrese una cantidad valida")
             else:
                 print("          Producto sin stock         ")
                 break
@@ -109,3 +110,74 @@ def validarStock(msj,productos,codigoProduct):
             print("Cantidad invalida, Ingrese una cantidad valida")
 
     return(cantidadProducto)
+
+
+
+
+def mostrarCarrito(carrito):
+    total=0
+    print("{:^80}".format("TU CARRO DE LA COMPRA"))
+    texto=("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( "Nombre", "Marca", "Precio x Unidad", "Cantidad","Subtotal"))
+    print(texto)
+    print("--------------------------------------------------------------------------------------------------------------------")
+    for codigo,detalles in carrito.items():
+        nombre = detalles["Nombre"]
+        marca = detalles["Marca"]
+        precio = detalles["Precio"]
+        cantidad = detalles["CantidadCompra"]
+        subtotal = detalles["Subtotal"]
+        total+=subtotal
+        print("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( nombre, marca, "$"+str(precio), cantidad, "$"+str(subtotal)))
+    print("""
+    
+--------------------------------------------------------------------------------------------------------------------""")
+    print("|{:>114}|".format("$"+str(total)))
+    return
+
+
+def validarCodigoProducto(msj, carrito):
+    while True:
+        codProducto= input(msj).lower()
+        for i in carrito:
+            if codProducto==i or codProducto==(carrito[i]["Nombre"]).lower():
+                codigoValido=i
+                return(codigoValido)    
+        else:
+            print("Producto no encontrado. Ingrese nuevamente un código valido")
+
+def validarCantidad(msj,carrito, codigoProduct,productos):
+    while True:
+        cantidad=input(msj)
+        try:
+            cantidad=int(cantidad)
+            if cantidad <= carrito[codigoProduct]["CantidadCompra"] and cantidad > 0:
+                carrito[codigoProduct]["CantidadCompra"] -= cantidad
+                productos[codigoProduct]["Stock"] += cantidad
+                break
+            elif cantidad > carrito[codigoProduct]["CantidadCompra"] and carrito[codigoProduct]["CantidadCompra"] !=0:
+                print(f"""
+                No puede modificar esa cantidad de producto, 
+                Tiene en el carro {carrito[codigoProduct]["CantidadCompra"]} Unidad\es del producto {carrito[codigoProduct]["Nombre"]},
+                """)
+            elif cantidad <= 0:
+                print("Cantidad invalida, Ingrese una cantidad valida")
+                break
+        except ValueError:
+            print("Cantidad invalida, Ingrese una cantidad valida")
+    return(cantidad)
+
+
+def eliminiarProductoCarro(carrito, codigoProduct, productos):
+    while True:
+        cantidadRetorno=carrito[codigoProduct]["CantidadCompra"]
+        productos[codigoProduct]["Stock"]+= cantidadRetorno
+        del carrito[codigoProduct]
+        print("El producto fue eliminado correctamente de su carrito")
+
+        return
+    
+def finalizarCompra(carrito):
+        carrito.clear()
+
+
+
