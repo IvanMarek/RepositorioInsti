@@ -81,7 +81,7 @@ while True:
 3. Finalizar compra
 4. Regresar al menu principal
 """)
-        opciones= validacionMenu(":    ",1,3)
+        opciones= validacionMenu(":    ",1,4)
 
         if opciones==1:
             print("\nIngrese el codigo o nombre del producto que desea modificar la cantidad\n")
@@ -99,19 +99,28 @@ while True:
                     """)
             if op==5:
                 os.system("cls")
-                break
+                pass
+                continuar=input("""
+                        Presionar enter para volver al menú principal     
+                  """)
         if opciones==2:
             print("\nIngrese el codigo o nombre del producto que desea eliminar:\n")
-            codigoProduct= validarCodigoProducto(" :   ", carrito)
-            print(carrito[codigoProduct])
+            codigoProductEliminar= validarCodigoProducto(" :   ", carrito)
+            print(carrito[codigoProductEliminar])
             op=OpcionesSi_No("Realmente desea eliminar este producto?   \n(1-SI,5-NO) \n:  ")
             if op==1:
-                eliminar=eliminiarProductoCarro(carrito,codigoProduct,productos)
-                carrito=mostrarCarrito(carrito)
+                eliminar=eliminiarProductoCarro(carrito,codigoProductEliminar,productos)
+
+                continuar=input("""
+                        Presionar enter para volver al menú principal     
+                  """)
             if op==5:
                 os.system("cls")
-                break
-        
+                pass
+                continuar=input("""
+                        Presionar enter para volver al menú principal     
+                  """)
+
         if opciones==3:
             carrito=mostrarCarrito(carrito)
             op=OpcionesSi_No("Realmente desea realizar la compra?   \n(1-SI,5-NO) \n:  ")
@@ -119,23 +128,35 @@ while True:
                 carrito.clear()
                 os.system("cls")
                 print("Muchas gracias por su compra")
+                print(f"""
+                    Muestra el producto guardado en el nuevo diccionario de carrito y la cantidad del mismo q compro el cliente...
+
+                    {carrito}
+
+                    """)
                 break
 
             if op==5:
                 os.system("cls")
-                break
+                pass
+                continuar=input("""
+                        Presionar enter para volver al menú principal     
+                  """)
 
 
         if opciones==4:
             os.system("cls")
-            break
+            pass
 
-        continuar=input("""
-                        Presionar enter para continuar     
+            continuar=input("""
+                        Presionar enter para volver al menú principal     
                   """)
     if opciones==3:
         os.system("cls")
-        print("Gracias por usar la tienda de Ivi's <3 <3 <3 ")
+        print("""
+                        Gracias por usar la tienda de Ivi's <3 <3 <3 
+                        
+                        """)
         break
 
 

@@ -132,7 +132,8 @@ def mostrarCarrito(carrito):
     
 --------------------------------------------------------------------------------------------------------------------""")
     print("|{:>114}|".format("$"+str(total)))
-    return
+
+   
 
 
 def validarCodigoProducto(msj, carrito):
@@ -167,17 +168,25 @@ def validarCantidad(msj,carrito, codigoProduct,productos):
     return(cantidad)
 
 
-def eliminiarProductoCarro(carrito, codigoProduct, productos):
+def eliminiarProductoCarro(carrito, codigoProductEliminar, productos):
     while True:
-        cantidadRetorno=carrito[codigoProduct]["CantidadCompra"]
-        productos[codigoProduct]["Stock"]+= cantidadRetorno
-        del carrito[codigoProduct]
+        cantidadRetorno=carrito[codigoProductEliminar]["CantidadCompra"]
+        productos[codigoProductEliminar]["Stock"]+= cantidadRetorno
+        del carrito[codigoProductEliminar]
+        print(f"""
+                    Muestra carrito luego de eliminar
+
+                    {carrito}
+
+                    """)
         print("El producto fue eliminado correctamente de su carrito")
 
         return
     
 def finalizarCompra(carrito):
-        carrito.clear()
+    carrito.clear()
+
+    return(carrito)
 
 
 
