@@ -155,7 +155,7 @@ def validarCodigoProducto(msj, carrito):
             print("--------------------------------------------------------------------------------------------------------------------")
             print("|{:^30}|{:^30}|{:^20}|{:^15}|{:^15}|".format( nombre, marca, "$"+str(precio), cantidad, "$"+str(subtotal)))
             print("""--------------------------------------------------------------------------------------------------------------------""")
-            return(codProducto)
+            return(codigoValido)
         else:
             print("Producto no encontrado. Ingrese nuevamente un código válido")
 
@@ -183,10 +183,11 @@ def validarCantidad(msj,carrito, codigoProduct,productos):
                     break
                 if modificarEliminar==5:
                     os.system("cls")
-                    pass
                     continuar=input("""
                             Presionar enter para volver al menú principal
                         """)
+                    break
+                    
             elif cantidad <= 0:
                 print("Cantidad inválida, Ingrese una cantidad válida")
                 
@@ -200,7 +201,15 @@ def eliminarProductoCarro(carrito, codigoProductEliminar, productos):
         cantidadRetorno=carrito[codigoProductEliminar]["CantidadCompra"]
         productos[codigoProductEliminar]["Stock"]+= cantidadRetorno
         del carrito[codigoProductEliminar]
-        print("El producto fue eliminado correctamente de su carro")
+        print("""
+              
+              El producto fue eliminado correctamente de su carro
+              
+              """)
+        continuar = input("""
+                            Presionar enter para volver al menú principal
+                        """)
+        os.system("cls")
         break
 
     
