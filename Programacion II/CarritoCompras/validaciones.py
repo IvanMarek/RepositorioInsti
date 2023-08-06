@@ -206,3 +206,6 @@ def eliminarProductoCarro(carrito, codigoProductEliminar, productos):
     
 def finalizarCompra(carrito):
     carrito.clear()
+
+
+"""XD"""
