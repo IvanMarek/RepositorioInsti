@@ -70,7 +70,6 @@ while True:
             if opciones==1:
                 print("\nIngrese el código o nombre del producto que desea modificar la cantidad\n")
                 codigoProduct= validarCodigoProducto(" :   ", carrito)
-                print(carrito[codigoProduct])
 
                 op=OpcionesSi_No("¿Realmente desea modificar este producto?   (1-SI,5-NO) \n:  ")
                 if op==1:
@@ -86,10 +85,10 @@ while True:
             if opciones==2:
                 print("\nIngrese el código o nombre del producto que desea eliminar:\n")
                 codigoProductEliminar= validarCodigoProducto(" :   ", carrito)
-                print(carrito[codigoProductEliminar])
+
                 op=OpcionesSi_No("¿Realmente desea eliminar este producto?   \n(1-SI,5-NO) \n:  ")
                 if op==1:
-                    eliminar=eliminiarProductoCarro(carrito,codigoProductEliminar,productos)
+                    eliminar=eliminarProductoCarro(carrito,codigoProductEliminar,productos)
                     continuar=input("""
                             Presionar enter para volver al menú principal     
                     """)
@@ -109,16 +108,19 @@ while True:
                     print("""
                             Muchas gracias por su compra
                             
-                            
-                            """)
                     
+                            """)
+                    continuar=input("""
+                            Presionar enter para volver al menú principal     
+                    """)
+                    continue
                 if op==5:
                     os.system("cls")
                     pass
                     continuar=input("""
                             Presionar enter para volver al menú principal     
                     """)
-                    
+                    continue
             if opciones==4:
                 os.system("cls")
                 pass

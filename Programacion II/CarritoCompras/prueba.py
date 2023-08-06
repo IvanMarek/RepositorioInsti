@@ -87,7 +87,7 @@ while True:
             print(carrito[codigoProductEliminar])
             op=OpcionesSi_No("¿Realmente desea eliminar este producto?   \n(1-SI,5-NO) \n:  ")
             if op==1:
-                eliminar=eliminiarProductoCarro(carrito,codigoProductEliminar,productos)
+                eliminar=eliminarProductoCarro(carrito,codigoProductEliminar,productos)
                 continuar=input("""
                         Presionar enter para volver al menú principal     
                   """)
