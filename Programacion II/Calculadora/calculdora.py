@@ -23,8 +23,6 @@ def numsNotStr(msj):
         except ValueError:
             print("El dato ingresado no es un numero")
 
-
-"""
 def suma():
     cont=0
     numeros=[]
@@ -39,7 +37,6 @@ def suma():
     print("El resultado de la suma de los números dados es:  " + str(resultado))
 sumar=suma()
 
-
 def resta():
     cont=0
     numeros=[]
@@ -53,8 +50,8 @@ def resta():
         resultado -= i
     print("El resultado de la resta de los números dados es:  " + str(resultado))
 restar=resta()
-"""
-"""def multiplicacion():
+
+def multiplicacion():
     cont=0
     numeros=[]
     Cantidad=cantidadNumOperar("Ingrese la cantidad de números a multiplicar:  \n")
@@ -68,57 +65,66 @@ restar=resta()
         numeros.pop(1)
 
     print("El resultado de la multiplicación de los números dados es:  " + str(resultado))
-multiplicar=multiplicacion()"""
+multiplicar=multiplicacion()
 
-
-"""def division():
+def division():
     cont=0
     decimales= 2
     numeros=[]
     Cantidad=cantidadNumOperar("Ingrese la cantidad de números a dividir:  \n")
     while cont < Cantidad:
         num=numsNotStr("Ingrese un número:   \n")
-        numeros.append(num)
-        cont+=1
-    while len(numeros)>1:
-        if numeros[1] > 0:
-            resultado = numeros[0] / numeros[1]
-            numeros[0]= resultado
-            numeros.pop(1)
+        if num != 0:
+            numeros.append(num)
+            cont+=1
         else:
-            print("\n No se puede dividir por 0 \n")
+            print("Los numeros ingresado no pueden ser 0  \n")
+    while len(numeros)>1:
+            if numeros[1] > 0 or numeros[1] < 0:
+                resultado = numeros[0] / numeros[1]
+                numeros[0]= resultado
+                numeros.pop(1)
+
     resultadoDecimal= float(resultado)
 
-    print("\n  El resultado (redondeado) de la división de los números dados es:  " + str(round(resultado))+ "\n" )
+    print("\n  El resultado (redondeado) de la división de los números dados es:  " + str(round(resultado, decimales))+ "\n" )
     print("\n  El resultado (Decimales) de la división de los números dados es:  " + str(resultadoDecimal)+ "\n" )
     print("\n  El resultado (fracción) de la división de los números dados es:  " + str(resultado)+ "\n" )
-dividir=division()"""
+dividir=division()
 
-"""def potenciacion():
+def potenciacion():
     num=numsNotStr("\n Ingrese un número:   \n")
-    num2=numsNotStr("Ingrese un número como potencia:   \n")
+    num2=numsNotStr("Ingrese el exponente de la potencia:   \n")
     poten= num**num2
 
-    print("El resultado de la multiplicación de los números dados es:  " + str(poten))
-potenciciación=potenciacion()"""
-
-
-"""def potenciacion(msj1, msj2):   NO FUNCIONAAAAAA
-    while True:
-        num1=input(msj1)
-        try:
-            num1=Fraction(num1)
-            return(num1)
-        except ValueError:
-            print("\n El numero ingresado no es valido  \n\n")"""
+    print("El resultado de la potenciación de los números dados es:  " + str(poten))
+potenciciación=potenciacion()
 
 def radicacion():
-    num=numsNotStr("\n Ingrese un número:   \n")
-    num2=numsNotStr("Ingrese un número como indice de la raíz:   \n")
-    if num2 >1:
-        raiz= num**(1/num2)
-        print("El resultado de la  de los números dados es:  " + str(raiz))
-    else:
-        print(" No es posible calcular, se calculan raíces cuadradas en adelante")
+    decimales= 2
+    while True:
+        num=numsNotStr("\n Ingrese un número:   \n")
+        num2=numsNotStr("Ingrese un número como indice de la raíz:   \n")
+        if num < 0 and num2 % 2 != 0:
+            raiz= num**(1/num2)
+            redondeo= round(raiz,decimales)
+            print("El resultado de la  de los números dados es:  " + str(redondeo))
+            break
+        if num < 0 and num2 %2 == 0:
+            print("No es posible realizar raíces pares en numero negativos... por ejemplo: 2 √-16 ")
+        if num2 >1:
+            raiz= num**(1/num2)
+            cadena_formato = "El resultado de la  de los números dados es:  {:.{}f}".format(raiz, decimales)
+            print(cadena_formato)
+            break
+        else:
+            print(" No es posible calcular, se calculan raíces cuadradas en adelante")
 Radicación=radicacion()
 
+def porcentaje():
+    num=numsNotStr("\n Ingrese un número:   \n")
+    num2=numsNotStr("Ingrese el porcentaje a aplicar:   \n")
+    porcen= num*num2/100
+    print("El porcentaje es:  " +  str(porcen))
+
+porciento=porcentaje()
