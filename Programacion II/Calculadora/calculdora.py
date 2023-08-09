@@ -107,7 +107,7 @@ def radicacion():
         num2=numsNotStr("Ingrese un número como indice de la raíz:   \n")
         if num < 0 and num2 % 2 != 0:
             raiz= num**(1/num2)
-            redondeo= round(raiz,decimales)
+            redondeo=(raiz)
             print("El resultado de la  de los números dados es:  " + str(redondeo))
             break
         if num < 0 and num2 %2 == 0:
