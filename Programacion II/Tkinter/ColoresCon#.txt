@@ -1,0 +1,3 @@
+#030A37 azul opaco
+#0F1B68 azul vivo
+#C0F7FC celeste claro casi blanco
