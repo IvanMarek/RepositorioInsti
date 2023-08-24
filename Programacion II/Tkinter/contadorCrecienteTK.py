@@ -6,7 +6,7 @@ class Aplicacion():
         self.window = Tk()
         self.window.title("Contador")
         self.window.resizable(0,0)
-        self.window.geometry("350x200")
+        self.window.geometry("350x100")
         self.createWidgets()
         self.window.mainloop()
 
@@ -23,13 +23,13 @@ class Aplicacion():
 
     def createWidgets(self):
 
-        self.text= ttk.Label(self.window, text="Contador ").grid(row=1, column= 0,padx= 30, pady=45)
+        self.text= ttk.Label(self.window, text="Contador ").grid(row=0, column= 0,padx= 30, pady=45)
         self.contador= ttk.Entry(self.window, width=22, justify=CENTER)
-        self.contador.grid(row=1, column= 2,columnspan=2)
+        self.contador.grid(row=0, column= 2,columnspan=2)
         self.contador.insert(0,0)
         self.contador.config(state="readonly")
         self.botoncount= ttk.Button(self.window, text=" + ")
-        self.botoncount.grid(row=1, column= 4)
+        self.botoncount.grid(row=0, column= 4)
         self.botoncount.config(command=self.incremento)
 
 
