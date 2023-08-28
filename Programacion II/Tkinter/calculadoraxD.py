@@ -42,7 +42,7 @@ class Aplicacion():
         except:
             self.resultado.config(state=NORMAL)
             self.resultado.delete(0,END)
-            self.resultado.insert(0," Error de sintaxis 2 ")
+            self.resultado.insert(0," Error de sintaxis ")
             self.resultado.config(state="readonly")
 
 

@@ -1,5 +1,6 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk 
+
 class Aplicacion():
     def __init__(self):
         self.window = Tk()
