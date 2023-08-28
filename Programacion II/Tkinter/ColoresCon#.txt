@@ -1,3 +1,16 @@
+
+Azules:
 #030A37 azul opaco
-#0F1B68 azul vivo
+#0F1B68 azul vivo 
+#162a40
+#1a364e
+
+rosas:
+#e9abb1 rosa clarito
+#cb808b
+#a35c6e
+
 #C0F7FC celeste claro casi blanco
+
+#333b3d gris
+iconos: ⇦

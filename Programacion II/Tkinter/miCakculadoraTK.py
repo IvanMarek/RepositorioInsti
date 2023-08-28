@@ -19,7 +19,7 @@ class Aplicacion():
 
     def createWidgets(self):
         entrada= Entry (self.window, font=("Arial", 20), relief=GROOVE, justify=RIGHT, bg= "#1a364e", fg="black")
-        entrada.grid(row=0, column=1, columnspan=5, rowspan=4, sticky=W+E)
+        entrada.grid(row=0, column=1, columnspan=5, rowspan=5, sticky=W+E)
         #Botones numéricos
 
         boton1=Button(self.window, text="1", bg= "#333b3d", width=3, height=3)

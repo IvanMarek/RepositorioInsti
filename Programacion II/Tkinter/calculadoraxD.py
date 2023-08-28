@@ -10,22 +10,47 @@ class Aplicacion():
         self.createWidgets()
         self.window.mainloop()
 
-    def validarNum(self):
-        while True:
-            try:
-                self.numero1 = int(self.num1.get())
-                self.numero2 = int(self.num2.get())
+    def calcular(self):
+        operaciones= self.num1.get() + self.operaciones[0] + self.num2.get()
+        self.numero1= self.num1.get()
+        self.numero2= self.num2.get()
+        try:
+            self.numero1= int(self.numero1)
+            self.numero2= int(self.numero2)
+            resultado = eval(operaciones)
+            self.resultado.config(state=NORMAL)
+            self.resultado.delete(0,END)
+            self.resultado.insert(0,resultado)
+            self.resultado.config(state="readonly")
+        except:
+            self.resultado.config(state=NORMAL)
+            self.resultado.delete(0,END)
+            self.resultado.insert(0," Error de sintaxis ")
+            self.resultado.config(state="readonly")
 
-            except:
-                self.resultado.config(state=NORMAL)
-                self.resultado.delete(0,END)
-                self.resultado.insert(" Error de sintaxis ")
-                self.resultado.config(state="readonly")
-
+    def calcularPorcentaje(self):
+        self.numero1= self.num1.get()
+        self.numero2= self.num2.get()
+        try:
+            self.numero1= int(self.numero1)
+            self.numero2= int(self.numero2)
+            result =eval("(self.numero1 * self.numero2) / 100")
+            self.resultado.config(state=NORMAL)
+            self.resultado.delete(0,END)
+            self.resultado.insert(0,result)
+            self.resultado.config(state="readonly")
+        except:
+            self.resultado.config(state=NORMAL)
+            self.resultado.delete(0,END)
+            self.resultado.insert(0," Error de sintaxis 2 ")
+            self.resultado.config(state="readonly")
 
 
 
     def createWidgets(self):
+
+        self.operaciones=[]
+
         self.primerNum= ttk.Label(self.window, text="Primer número")
         self.primerNum.grid(column=1, row=1, padx=(30, 10), pady=(20,10))
 
@@ -47,23 +72,23 @@ class Aplicacion():
 
         self.botonSum= ttk.Button(self.window, text=" + ")
         self.botonSum.grid(column=1, row= 4, sticky=W+E, padx=(25,0))
-        self.botonSum.config(command= lambda: ())
+        self.botonSum.config(command=lambda:[self.operaciones.insert(0,"+"), self.calcular()])
 
-        self.botonResta= ttk.Button(self.window, text=" - ")
+        self.botonResta= ttk.Button(self.window, text=" - ", command=lambda:[self.operaciones.insert(0,"-"), self.calcular()])
         self.botonResta.grid(column=2, row= 4, sticky=W+E, padx=(10,0))
 
-        self.botonMultiplicacion= ttk.Button(self.window, text=" * ")
+        self.botonMultiplicacion= ttk.Button(self.window, text=" x ", command=lambda:[self.operaciones.insert(0,"*"), self.calcular()])
         self.botonMultiplicacion.grid(column=1, row= 5, sticky=W+E, padx=(25,0))
 
-        self.botonDivision= ttk.Button(self.window, text=" / ")
+        self.botonDivision= ttk.Button(self.window, text=" ÷ ", command=lambda:[self.operaciones.insert(0,"/"), self.calcular()])
         self.botonDivision.grid(column=2, row= 5, sticky=W+E, padx=(10,0))
 
-        self.botonPorcen= ttk.Button(self.window, text=" % ")
+        self.botonPorcen= ttk.Button(self.window, text=" % ", command=lambda:[self.operaciones.insert(0,"%"), self.calcularPorcentaje()])
         self.botonPorcen.grid(column=1, row= 6, sticky=W+E, padx=(25,0))
 
         self.botonClear= ttk.Button(self.window, text=" CLEAR ")
         self.botonClear.grid(column=2, row= 6, sticky=W+E, padx=(10,0))
-        self.botonClear.config(command= lambda: [self.contador.config(state=NORMAL),self.contador.delete(0,END), self.contador.insert(0,0), self.contador.config(state="readonly")])
+        self.botonClear.config(command= lambda: [self.num1.config(state=NORMAL),self.num1.delete(0,END), self.num2.config(state=NORMAL),self.num2.delete(0,END), self.resultado.config(state=NORMAL), self.resultado.delete(0,END), self.resultado.config(state="readonly")])
 
 
 def run():
