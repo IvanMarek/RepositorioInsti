@@ -49,16 +49,19 @@ class Aplicacion():
         self.numero2= str(self.num2)
         calculara= self.numero1 + self.signoEs + self.numero2
         userResultado= self.EtiqResultado.get()
-        resolver= eval(calculara)
-        if resolver == userResultado:
-            self.cantJuegos.config(text=f"{self.cont}")
-            self.cantJuegosBuenos.config(text=f"{self.cont}")
-        else:
-            self.cantJuegosMalos.config(text=f"{self.cont}")
-
-    def incremento(self):
-        self.cont= self.contador
-        self.cont+=1
+        userResultado= float(userResultado)
+        try:
+            resolver= eval(calculara)
+            if resolver == userResultado:
+                self.contjuegos+=1
+                self.contJuegosBuenos+=1
+                self.cantJuegos.config(text=f"{self.contjuegos}")
+                self.cantJuegosBuenos.config(text=f"{self.contJuegosBuenos}")
+            else:
+                self.contJuegosMalos+=1
+                self.cantJuegosMalos.config(text=f"{self.contJuegosMalos}")
+        except:
+            self.EtiqResultado.insert(0," Error de sintaxis ")
 
 
     def createWidgets(self):
@@ -76,7 +79,7 @@ class Aplicacion():
         self.segundoNum.grid(row=2, column= 3, padx=(10,20),  pady=(20,10), sticky=N)
         self.segundoNum.config(state="readonly")
 
-        self.botonNuevoJuego= ttk.Button(self.window, text= " Nuevo juego ", command= lambda: [self.numerosAlazar(), self.signosAlAzar()])
+        self.botonNuevoJuego= ttk.Button(self.window, text= " Nuevo juego ", command= lambda: [self.primerNum.config(state=NORMAL) ,self.primerNum.delete(0,END), self.primerNum.config(state="readonly"), self.segundoNum.config(state=NORMAL) , self.segundoNum.delete(0,END), self.segundoNum.config(state="readonly"),self.numerosAlazar(), self.signosAlAzar(), self.segundoNum.delete(0,END), self.EtiqResultado.delete(0,END),self.EtiqResultado.config(state=NORMAL)])
         self.botonNuevoJuego.grid(row=3, column=4, sticky=N)
 
 
@@ -99,8 +102,12 @@ class Aplicacion():
         self.EtiqResultado= ttk.Entry(self.window, width=17, justify=CENTER)
         self.EtiqResultado.grid(row=5, column=4)
 
-        self.botonResultado= ttk.Button(self.window, text=" Resultado ", command= lambda: self.calcular())
+        self.botonResultado= ttk.Button(self.window, text=" Resultado ", command= lambda: [self.calcular(), self.EtiqResultado.delete(0,END), self.EtiqResultado.config(state="readonly")])
         self.botonResultado.grid(row=7, column=4, sticky=W+E)
+
+        self.contjuegos=0
+        self.contJuegosBuenos=0
+        self.contJuegosMalos=0
 
         self.juegos= ttk.Label(self.window, text=" Juegos: ", justify=RIGHT)
         self.juegos.grid(row=9, column=3, sticky=E, padx=(0,5), pady=(30,5))
