@@ -9,6 +9,7 @@ class Aplicacion():
         self.window.title("Contador")
         self.window.resizable(0,0)
         self.window.geometry("500x120")
+        self.window.config(bg="#A8C0C2")
         self.createWidgets()
         self.window.mainloop()
 
