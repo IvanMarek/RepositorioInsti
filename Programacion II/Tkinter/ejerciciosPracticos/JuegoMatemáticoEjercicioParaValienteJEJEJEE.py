@@ -69,7 +69,7 @@ class Aplicacion():
 
     def createWidgets(self):
         self.contador= 0
-        self.dificult= []
+        self.dificult= ["0"]
         n= IntVar()
 
         self.primerNum= ttk.Entry(self.window, width=17, justify=CENTER)
@@ -134,13 +134,13 @@ class Aplicacion():
         self.cantJuegosMalos= ttk.Label(self.window, text="0", justify=RIGHT)
         self.cantJuegosMalos.grid(row=11, column=4, padx=(5,5), pady=(5,0), sticky=W)
 
-        self.botonFacil= ttk.Radiobutton(self.window, text=" Fácil", value=1,command= lambda: [self.botonNuevoJuego.config(state=NORMAL) , self.dificult.append(1), self.dificultas(), self.cantJuegos.config(text="0"), self.cantJuegosBuenos.config(text="0"), self.cantJuegosMalos.config(text="0")])
+        self.botonFacil= ttk.Radiobutton(self.window, text=" Fácil", value=1,command= lambda: [self.dificult.pop(0), self.botonNuevoJuego.config(state=NORMAL) , self.dificult.append(1), self.dificultas(), self.cantJuegos.config(text="0"), self.cantJuegosBuenos.config(text="0"), self.cantJuegosMalos.config(text="0")])
         self.botonFacil.grid(row=11, column=0, sticky=W+E, padx=(10,0))
 
-        self.botonNormal= ttk.Radiobutton(self.window, text=" Normal ", value=2,command= lambda:[self.botonNuevoJuego.config(state=NORMAL), self.dificult.append(2), self.dificultas(), self.cantJuegos.config(text="0"), self.cantJuegosBuenos.config(text="0"), self.cantJuegosMalos.config(text="0")])
+        self.botonNormal= ttk.Radiobutton(self.window, text=" Normal ", value=2,command= lambda:[self.dificult.pop(0), self.botonNuevoJuego.config(state=NORMAL), self.dificult.append(2), self.dificultas(), self.cantJuegos.config(text="0"), self.cantJuegosBuenos.config(text="0"), self.cantJuegosMalos.config(text="0")])
         self.botonNormal.grid(row=11, column=1, sticky=W+E, padx=(30,20))
 
-        self.botonDificil= ttk.Radiobutton(self.window, text=" Difícil ", value=3,command= lambda:[self.botonNuevoJuego.config(state=NORMAL), self.dificult.append(3), self.dificultas(), self.cantJuegos.config(text="0"), self.cantJuegosBuenos.config(text="0"), self.cantJuegosMalos.config(text="0")])
+        self.botonDificil= ttk.Radiobutton(self.window, text=" Difícil ", value=3,command= lambda:[self.dificult.pop(0), self.botonNuevoJuego.config(state=NORMAL), self.dificult.append(3), self.dificultas(), self.cantJuegos.config(text="0"), self.cantJuegosBuenos.config(text="0"), self.cantJuegosMalos.config(text="0")])
         self.botonDificil.grid(row=11, column=2, sticky=W+E, padx=(10,0))
 
 
