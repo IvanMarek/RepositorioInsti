@@ -7,7 +7,7 @@ import mysql.connector
 conexion = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="estudiantes2020",
+    password="Ivan08012000@",
     database="ESCUELA",
     port=3305,
 )
@@ -96,10 +96,10 @@ def guardar_alumno():
 
 
 def modificar_alumno():
+    
     selectGrilla = tree.item(tree.selection())
     if len(selectGrilla["values"]) != 0:
         selectGrilla = selectGrilla["values"]
-        print(selectGrilla)
         nombre_entry.delete(0, tk.END)
         apellido_entry.delete(0, tk.END)
         dni_entry.delete(0, tk.END)
@@ -117,19 +117,47 @@ def modificar_alumno():
         apellido_entry.insert(0, apellidoAlum)
         dni_entry.insert(0, dniAlum)
 
-        # FALTA EL MODIFICARRRRR AAAAAHHHHHH
-        cursor = conexion.cursor()
-        cursor.execute(
-            "UPDATE Alumnos set Nombre=%s, Apellido=%s, DNI=%s, IDCARRERA=%s, IDESTADOALUMNO=%s",
-            (nombreAlum, apellidoAlum, dniAlum, carreraAlum, estadoAlum),
-        )
+        guardar_button.config(text="GUARDAR CAMBIOS",command=lambda: guardarCambios(idAlumno))
 
-        traerCarrera = cargar_carreras()
-        for positionCarrera in traerCarrera:
-            if carreraAlum == positionCarrera[1]:
-                idCarrera = positionCarrera[0]
 
-        pass
+def guardarCambios(idAlumno):
+    cursor = conexion.cursor()
+    nombreAlum = nombre_entry.get().upper()
+    apellidoAlum = apellido_entry.get().upper()
+    dniAlum = dni_entry.get()
+    carrera_nombre = carrera_combobox.get()
+    estadoAlum = estado_combobox.get()
+
+    if nombreAlum and apellidoAlum and dniAlum and carrera_nombre:
+        # Obtener el ID de la carrera seleccionada
+        selectGrilla=tree.item(tree.selection())
+        selectGrilla=selectGrilla["values"]
+        print (selectGrilla)
+        carreras = cargar_carreras()
+        carrera_id = None
+        for carrera in carreras:
+            if carrera[1] == carrera_nombre:
+                carrera_id = carrera[0]
+                break
+        estados= cargar_estado()
+        estado_Id= None
+        for estado in estados:
+            if estado[1]== estadoAlum:
+                estado_Id = estado[0]
+                break
+
+    cursor = conexion.cursor()
+    cursor.execute( "UPDATE alumnos set Nombre=%s, Apellido=%s, DNI=%s, IDCARRERA=%s, IDESTADOALUMNO=%s WHERE IDALUMNO =%s",(nombreAlum, apellidoAlum, dniAlum, carrera_id, estado_Id, idAlumno),)
+    conexion.commit()
+    cargar_datos()
+    messagebox.showinfo("Exito!","Cambios guardados con exito!")
+    nombre_entry.delete(0, tk.END)
+    apellido_entry.delete(0, tk.END)
+    dni_entry.delete(0, tk.END)
+    carrera_combobox.set("")
+    estado_combobox.set("") 
+    guardar_button.config(text="Guardar",command=guardar_alumno)
+    estado_combobox.config(state="disabled")
 
 
 # Crear ventana
@@ -165,9 +193,7 @@ dni_entry.grid(row=3, column=1, padx=5, pady=5, ipadx=5, ipady=5, sticky="ew")
 # Combo box para la carrera
 carrera_label = tk.Label(formulario_frame, text="Carrera:")
 carrera_label.grid(row=4, column=0)
-carrera_combobox = ttk.Combobox(
-    formulario_frame, state="readonly"
-)  # Configurar el ComboBox como de solo lectura
+carrera_combobox = ttk.Combobox(formulario_frame, state="readonly")  # Configurar el ComboBox como de solo lectura
 carrera_combobox.grid(row=4, column=1, padx=5, pady=5, ipadx=5, ipady=5, sticky="ew")
 
 # Cargar las carreras al inicio de la aplicación y obtener la lista de carreras con sus IDs
@@ -176,10 +202,9 @@ carreras = cargar_carreras()
 # Combo box para el estado de alumno
 estado_label = tk.Label(formulario_frame, text="Estado:")
 estado_label.grid(row=5, column=0)
-estado_combobox = ttk.Combobox(
-    formulario_frame, state="readonly"
-)  # Configurar el ComboBox como de solo lectura
+estado_combobox = ttk.Combobox(formulario_frame)  # Configurar el ComboBox como de solo lectura
 estado_combobox.grid(row=5, column=1, padx=5, pady=5, ipadx=5, ipady=5, sticky="ew")
+estado_combobox.config(state="disable")
 
 # cargar los estados al inicio de la aplicación y obtener una lista de estados con sus IDs
 estados = cargar_estado()
@@ -187,6 +212,8 @@ estados = cargar_estado()
 # Botón para guardar un nuevo registro de alumno
 guardar_button = tk.Button(formulario_frame, text="Guardar", command=guardar_alumno)
 guardar_button.grid(row=6, columnspan=2, pady=10, sticky="ew")
+
+
 
 # Botón modificar...........
 
@@ -208,10 +235,8 @@ tree.heading("#3", text="Apellido")
 tree.heading("#4", text="DNI")
 tree.heading("#5", text="Carrera")
 tree.heading("#6", text="Estado del alumno")
-tree.heading("#1", text="Codigo Alumno")
-tree.column(
-    "#0", width=0, stretch=tk.NO
-)  # Ocultar la columna #0 que habitualmente muestra las primary key de los objetos
+tree.heading("#1", text="Código Alumno")
+tree.column("#0", width=0, stretch=tk.NO)  # Ocultar la columna #0 que habitualmente muestra las primary key de los objetos
 
 tree.grid(padx=10, pady=10)
 
@@ -220,9 +245,7 @@ tree.column("#3", anchor=tk.CENTER)  # Centrar datos en la columna 'Apellido'
 tree.column("#4", anchor=tk.CENTER)  # Centrar datos en la columna 'DNI'
 tree.column("#5", anchor=tk.CENTER)  # Centrar datos en la columna 'Carrera'
 tree.column("#6", anchor=tk.CENTER)  # Centrar datos en la columna 'Estado De alumno'
-tree.column(
-    "#1", width=0, stretch=tk.NO
-)  # Ocultar la columna #0 que habitualmente muestra las primary key de los objetos
+tree.column("#1", width=0, stretch=tk.NO)  # Ocultar la columna #0 que habitualmente muestra las primary key de los objetos
 tree.grid(padx=10, pady=10)
 
 
@@ -230,7 +253,8 @@ tree.grid(padx=10, pady=10)
 cargar_button = tk.Button(root, text="Cargar Datos", command=cargar_datos)
 cargar_button.grid(pady=5, padx=(0, 150), row=7)
 
-modificar_button = tk.Button(root, text="Modificar datos", command=modificar_alumno)
+# Botón para modificar un alumno
+modificar_button = tk.Button(root, text="Modificar datos", command = lambda: [modificar_alumno(), estado_combobox.config(state="readonly")])
 modificar_button.grid(pady=5, padx=(150, 0), row=7)
 """modificar_button.config(state="disabled")"""
 
