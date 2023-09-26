@@ -18,7 +18,7 @@ def cargar_datos():
     tree.delete(*tree.get_children())  # Borrar datos existentes en el Treeview
     cursor = conexion.cursor()
     cursor.execute(
-        """SELECT Alumnos.IDALUMNO, Alumnos.NOMBRE, Alumnos.APELLIDO, Alumnos.DNI, Carreras.NOMBRE, estadoalumno.NOMBRE FROM Alumnos  JOIN Carreras ON Alumnos.IDCARRERA = Carreras.IDCARRERA JOIN estadoalumno ON Alumnos.IDESTADOALUMNO = estadoalumno.IDESTADOALUMNO WHERE Alumnos.IDESTADOALUMNO != 4 """
+        """SELECT Alumnos.IDALUMNO, Alumnos.NOMBRE, Alumnos.APELLIDO, Alumnos.DNI, Carreras.NOMBRE, estadoalumno.NOMBRE FROM Alumnos  JOIN Carreras ON Alumnos.IDCARRERA = Carreras.IDCARRERA JOIN estadoalumno ON Alumnos.IDESTADOALUMNO = estadoalumno.IDESTADOALUMNO WHERE Alumnos.IDESTADOALUMNO != 1 and Alumnos.estadoACDS =1 """
     )
     for row in cursor.fetchall():
         tree.insert("", "end", values=row)
@@ -37,7 +37,9 @@ def cargar_estado():
     cursor = conexion.cursor()
     cursor.execute("SELECT IDESTADOALUMNO, NOMBRE FROM estadoalumno ORDER BY NOMBRE")
     estado = cursor.fetchall()
-    estado_combobox["values"] = [row[1] for row in estado]
+    if estado != 1:
+        estado_combobox["values"] = [row[1] for row in estado]
+
     return estado  # Devolver también la lista de estados con sus IDs
 
 
@@ -49,6 +51,21 @@ def mostrar_alerta(mensaje):
 # función para validar DNI del alumno
 def dniValido():
     dni = dni_entry.get()
+    extraerDNI= traerDNI()
+    if dni not in extraerDNI:
+        dni = dni.replace(".", "")
+        try:
+            dni = int(dni)
+            if len(str(dni)) == 8:
+                return str(dni)
+            else:
+                messagebox.showerror("Error", "El DNI debe contener exactamente 8 números.")
+        except:
+            messagebox.showerror("Error", "El DNI no admite letras")
+    else:
+        messagebox.showerror("Error", "El DNI ya existe...")
+def validarDNI2_0():
+    dni = dni_entry.get()
     dni = dni.replace(".", "")
     try:
         dni = int(dni)
@@ -58,8 +75,13 @@ def dniValido():
             messagebox.showerror("Error", "El DNI debe contener exactamente 8 números.")
     except:
         messagebox.showerror("Error", "El DNI no admite letras")
-    return
 
+def traerDNI():
+    cursor = conexion.cursor()
+    cursor.execute("SELECT DNI FROM ALUMNOS")
+    dni = [val[0] for val in cursor.fetchall()]
+    print(dni)
+    return dni
 
 # Función para guardar un nuevo registro de alumno
 def guardar_alumno():
@@ -67,8 +89,8 @@ def guardar_alumno():
     apellido = apellido_entry.get().upper()
     dni = dniValido()
     carrera_nombre = carrera_combobox.get()
-    estado_alumno = 3  # Valor predeterminado para IDESTADOALUMNO
-
+    estado_alumno = 2  # Valor predeterminado para IDESTADOALUMNO
+    
     if nombre and apellido and dni and carrera_nombre:
         # Obtener el ID de la carrera seleccionada
         carreras = cargar_carreras()
@@ -81,7 +103,7 @@ def guardar_alumno():
         cursor = conexion.cursor()
         # Insertar un nuevo registro en la tabla Alumnos con el ID de carrera y el valor predeterminado para IDESTADOALUMNO
         cursor.execute(
-            "INSERT INTO Alumnos (NOMBRE, APELLIDO, DNI, IDCARRERA, IDESTADOALUMNO) VALUES (%s, %s, %s, %s, %s)",
+            "INSERT INTO Alumnos (NOMBRE, APELLIDO, DNI, IDCARRERA, IDESTADOALUMNO, estadoACDS) VALUES (%s, %s, %s, %s, %s, 1)",
             (nombre, apellido, dni, carrera_id, estado_alumno),
         )
         conexion.commit()
@@ -100,6 +122,7 @@ def modificar_alumno():
     selectGrilla = tree.item(tree.selection())
     if len(selectGrilla["values"]) != 0:
         selectGrilla = selectGrilla["values"]
+        print(selectGrilla)
         nombre_entry.delete(0, tk.END)
         apellido_entry.delete(0, tk.END)
         dni_entry.delete(0, tk.END)
@@ -124,7 +147,7 @@ def guardarCambios(idAlumno):
     cursor = conexion.cursor()
     nombreAlum = nombre_entry.get().upper()
     apellidoAlum = apellido_entry.get().upper()
-    dniAlum = dni_entry.get()
+    dniAlum = validarDNI2_0()
     carrera_nombre = carrera_combobox.get()
     estadoAlum = estado_combobox.get()
 
@@ -146,18 +169,28 @@ def guardarCambios(idAlumno):
                 estado_Id = estado[0]
                 break
 
+        cursor = conexion.cursor()
+        cursor.execute( "UPDATE alumnos set Nombre=%s, Apellido=%s, DNI=%s, IDCARRERA=%s, IDESTADOALUMNO=%s WHERE IDALUMNO =%s",(nombreAlum, apellidoAlum, dniAlum, carrera_id, estado_Id, idAlumno),)
+        conexion.commit()
+        cargar_datos()
+        messagebox.showinfo("Exito!","Cambios guardados con exito!")
+        nombre_entry.delete(0, tk.END)
+        apellido_entry.delete(0, tk.END)
+        dni_entry.delete(0, tk.END)
+        carrera_combobox.set("")
+        estado_combobox.set("") 
+        guardar_button.config(text="Guardar",command=guardar_alumno)
+        estado_combobox.config(state="disabled")
+
+    
+def Eliminar_datos():
+    selectGrilla=tree.item(tree.selection())
+    selectGrilla=selectGrilla["values"]
+    idAlumno = selectGrilla[0]
     cursor = conexion.cursor()
-    cursor.execute( "UPDATE alumnos set Nombre=%s, Apellido=%s, DNI=%s, IDCARRERA=%s, IDESTADOALUMNO=%s WHERE IDALUMNO =%s",(nombreAlum, apellidoAlum, dniAlum, carrera_id, estado_Id, idAlumno),)
+    cursor.execute("UPDATE Alumnos SET estadoACDS = 0 where IDALUMNO =%s", (idAlumno,))
     conexion.commit()
     cargar_datos()
-    messagebox.showinfo("Exito!","Cambios guardados con exito!")
-    nombre_entry.delete(0, tk.END)
-    apellido_entry.delete(0, tk.END)
-    dni_entry.delete(0, tk.END)
-    carrera_combobox.set("")
-    estado_combobox.set("") 
-    guardar_button.config(text="Guardar",command=guardar_alumno)
-    estado_combobox.config(state="disabled")
 
 
 # Crear ventana
@@ -251,15 +284,22 @@ tree.grid(padx=10, pady=10)
 
 # Botón para cargar datos
 cargar_button = tk.Button(root, text="Cargar Datos", command=cargar_datos)
-cargar_button.grid(pady=5, padx=(0, 150), row=7)
+cargar_button.grid(pady=5, row=7)
 
 # Botón para modificar un alumno
 modificar_button = tk.Button(root, text="Modificar datos", command = lambda: [modificar_alumno(), estado_combobox.config(state="readonly")])
-modificar_button.grid(pady=5, padx=(150, 0), row=7)
-"""modificar_button.config(state="disabled")"""
+modificar_button.grid(pady=5, padx=(350, 0), row=7, sticky="W")
+
+# Botón para ELIMINAR un alumno
+
+eliminar_button= tk.Button(root, text="Eliminar datos", command= lambda: Eliminar_datos())
+eliminar_button.grid(pady=5, padx=(0,350), row=7, sticky="E")
+
 
 # Ejecutar la aplicación
 root.mainloop()
 
 # Cerrar la conexión a la base de datos al cerrar la aplicación
 conexion.close()
+
+
