@@ -189,6 +189,7 @@ def Eliminar_datos():
     cursor.execute("UPDATE Alumnos SET estadoACDS = 0 where IDALUMNO =%s", (idAlumno,))
     conexion.commit()
     cargar_datos()
+    messagebox.showinfo("Exito!","Eliminado con exito!")
 
 
 # Crear ventana
