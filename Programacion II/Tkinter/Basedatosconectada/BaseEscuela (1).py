@@ -49,15 +49,10 @@ def mostrar_alerta(mensaje):
 
 
 # función para validar DNI del alumno
-def dniValido(dni, op=0):
-    global dniAlum
-    listaDNI = traerDNI()
-    if op == 1: #Opción valida cuando deseo modificar un alumno
-        if dniAlum:
-            if dni == dniAlum:
-                listaDNI.remove(dniAlum) 
-                
-    if dni not in listaDNI:
+def dniValido():
+    dni = dni_entry.get()
+    extraerDNI= traerDNI()
+    if dni not in extraerDNI:
         dni = dni.replace(".", "")
         try:
             dni = int(dni)
@@ -69,13 +64,23 @@ def dniValido(dni, op=0):
             messagebox.showerror("Error", "El DNI no admite letras")
     else:
         messagebox.showerror("Error", "El DNI ya existe...")
+def validarDNI2_0():
+    dni = dni_entry.get()
+    dni = dni.replace(".", "")
+    try:
+        dni = int(dni)
+        if len(str(dni)) == 8:
+            return str(dni)
+        else:
+            messagebox.showerror("Error", "El DNI debe contener exactamente 8 números.")
+    except:
+        messagebox.showerror("Error", "El DNI no admite letras")
 
 def traerDNI():
     cursor = conexion.cursor()
     cursor.execute("SELECT DNI FROM ALUMNOS")
     dni = [val[0] for val in cursor.fetchall()]
-    print(dni)
-    return dni # Lista de DNI
+    return dni
 
 # Función para guardar un nuevo registro de alumno
 def guardar_alumno():
@@ -112,7 +117,7 @@ def guardar_alumno():
 
 
 def modificar_alumno():
-    global dniAlum
+    
     selectGrilla = tree.item(tree.selection())
     if len(selectGrilla["values"]) != 0:
         selectGrilla = selectGrilla["values"]
@@ -140,7 +145,7 @@ def guardarCambios(idAlumno):
     cursor = conexion.cursor()
     nombreAlum = nombre_entry.get().upper()
     apellidoAlum = apellido_entry.get().upper()
-    dniAlum = dniValido(dni_entry.get(), 1)
+    dniAlum = validarDNI2_0()
     carrera_nombre = carrera_combobox.get()
     estadoAlum = estado_combobox.get()
 
@@ -148,6 +153,7 @@ def guardarCambios(idAlumno):
         # Obtener el ID de la carrera seleccionada
         selectGrilla=tree.item(tree.selection())
         selectGrilla=selectGrilla["values"]
+        print (selectGrilla)
         carreras = cargar_carreras()
         carrera_id = None
         for carrera in carreras:
