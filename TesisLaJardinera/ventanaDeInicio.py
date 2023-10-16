@@ -6,24 +6,35 @@ import os
 from funcionesTesis import *
 
 
+def on_resize(event):
+    # Adjust column and row weights to make the widgets responsive
+    ventanaInicio.columnconfigure(0, weight=1)
+    ventanaInicio.rowconfigure(0, weight=1)
+
 ventanaInicio = Tk()
 
-ventanaInicio.geometry("800x600")
-ventanaInicio.config(bg="#A8C0C2")
+
+ancho_pantalla = ventanaInicio.winfo_screenwidth()
+alto_pantalla = ventanaInicio.winfo_screenheight()
+
+ventanaInicio.bind("<Configure>", on_resize)
+ventanaInicio.geometry(f"{ancho_pantalla}x{alto_pantalla}")
+"""ventanaInicio.config(bg="#010101")"""
 ventanaInicio.title('La Jardinera')
-ventanaInicio.resizable(height=False, width=False)
+"""ventanaInicio.resizable(height=False, width=False)"""
+
 
 menu = Label(ventanaInicio, text='Inicio')
-menu.grid(row=0, column=0, columnspan=5, pady= 30, padx=400)
+menu.pack(pady=50)
 
 boton_consultar_producto = Button(ventanaInicio, text= 'Consultar productos', width=25, height=2, command= lambda: consultar_producto(ventanaInicio))
-boton_consultar_producto.grid(row=2, column=2, pady= (100,40),sticky="nsew")
+boton_consultar_producto.pack(pady=30, ipady= 5)
 
 boton_consultar_proveedor = Button(ventanaInicio, text= 'Consultar proveedor', width=25, height=2)
-boton_consultar_proveedor.grid(row=3, column=2,sticky="nsew")
+boton_consultar_proveedor.pack(pady=30,ipady= 5)
 
 boton_consultar_informes = Button(ventanaInicio, text= 'Consultar informes', width=25, height=2)
-boton_consultar_informes.grid(row=4, column=2, pady= (40,100),sticky="nsew")
+boton_consultar_informes.pack(pady=30, ipady= 5)
 
 
 
