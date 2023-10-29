@@ -19,37 +19,37 @@ def agregar_proveedor(a):
     ventana_agregar_proveedor = Toplevel(a)
     ventana_agregar_proveedor.title('Agregar Proveedor')
 
-    agregar_proveedor_label = Label(ventana_agregar_proveedor, text='Agregar Proveedor')
+    agregar_proveedor_label = ttk.Label(ventana_agregar_proveedor, text='Agregar Proveedor')
     agregar_proveedor_label.grid(row=0, column=0, columnspan=2)
 
-    proveedor_razon_social_label = Label(ventana_agregar_proveedor, text='Razon Social: ')
+    proveedor_razon_social_label = ttk.Label(ventana_agregar_proveedor, text='Razon Social: ')
     proveedor_razon_social_label.grid(row=1, column=0)
 
-    proveedor_razon_social_entry = Entry(ventana_agregar_proveedor)
+    proveedor_razon_social_entry = ttk.Entry(ventana_agregar_proveedor)
     proveedor_razon_social_entry.grid(row=1, column=1)
 
-    proveedor_cuit_label = Label(ventana_agregar_proveedor, text='CUIT: ')
+    proveedor_cuit_label = ttk.Label(ventana_agregar_proveedor, text='CUIT: ')
     proveedor_cuit_label.grid(row=2, column=0)
 
-    proveedor_cuit_entry = Entry(ventana_agregar_proveedor)
+    proveedor_cuit_entry = ttk.Entry(ventana_agregar_proveedor)
     proveedor_cuit_entry.grid(row=2, column=1)
 
-    proveedor_domicilio_label = Label(ventana_agregar_proveedor, text='Domicilio: ')
+    proveedor_domicilio_label = ttk.Label(ventana_agregar_proveedor, text='Domicilio: ')
     proveedor_domicilio_label.grid(row=3, column=0)
 
-    proveedor_domicilio_entry = Entry(ventana_agregar_proveedor)
+    proveedor_domicilio_entry = ttk.Entry(ventana_agregar_proveedor)
     proveedor_domicilio_entry.grid(row=3, column=1)
 
-    proveedor_telefono_label = Label(ventana_agregar_proveedor, text='Telefono: ')
+    proveedor_telefono_label = ttk.Label(ventana_agregar_proveedor, text='Telefono: ')
     proveedor_telefono_label.grid(row=4, column=0)
 
-    proveedor_telefono_entry = Entry(ventana_agregar_proveedor)
+    proveedor_telefono_entry = ttk.Entry(ventana_agregar_proveedor)
     proveedor_telefono_entry.grid(row=4, column=1)
 
-    proveedor_email_label = Label(ventana_agregar_proveedor, text='Email: ')
+    proveedor_email_label = ttk.Label(ventana_agregar_proveedor, text='Email: ')
     proveedor_email_label.grid(row=5, column=0)
 
-    proveedor_email_entry = Entry(ventana_agregar_proveedor)
+    proveedor_email_entry = ttk.Entry(ventana_agregar_proveedor)
     proveedor_email_entry.grid(row=5, column=1)
 
     def guardar_proveedor():
@@ -69,12 +69,7 @@ def agregar_proveedor(a):
     boton_guardar_proveedor = Button(ventana_agregar_proveedor, text='Guardar', command=guardar_proveedor)
     boton_guardar_proveedor.grid(row=6, column=0, columnspan=2)
 
-def consultar_proveedores():
-    cursor.execute("SELECT razon_social FROM proveedor")
-    proveedores = cursor.fetchall()
-    base_datos.commit()
-    print(proveedores)
-    return ['Seleccionar Proveedor'] + [nombre[0] for nombre in proveedores]
+
 
 def agregar_categoria(a):
     ventana_agregar_categoria = Toplevel(a)
@@ -102,13 +97,25 @@ def agregar_categoria(a):
     boton_guardar_proveedor = Button(ventana_agregar_categoria, text='Guardar', command=guardar_categoria)
     boton_guardar_proveedor.grid(row=6, column=0, columnspan=2)
 
-def consultar_categorias():
-    cursor.execute("SELECT nombre FROM categoria")
-    categoria = cursor.fetchall()
-    base_datos.commit()
-    return ['Seleccionar Categoria'] + [nombre[0] for nombre in categoria]
+
 
 def ventana_nuevo_producto():
+    global imagen_bytes, proveedor_opciones, categoria_opciones
+
+    def consultar_proveedores():
+        cursor.execute("SELECT razon_social FROM proveedor")
+        proveedores = cursor.fetchall()
+        base_datos.commit()
+        print(proveedores)
+        return ['Seleccionar Proveedor'] + [nombre[0] for nombre in proveedores]
+
+
+    def consultar_categorias():
+        cursor.execute("SELECT nombre FROM categoria")
+        categoria = cursor.fetchall()
+        base_datos.commit()
+        return ['Seleccionar Categoria'] + [nombre[0] for nombre in categoria]
+
     def on_resize(event):
         ventana_agregar_producto.columnconfigure(0, weight=1)
         ventana_agregar_producto.rowconfigure(0, weight=1)
@@ -160,28 +167,28 @@ def ventana_nuevo_producto():
     ventana_agregar_producto.title('Agregar Producto')
     
 
-    agregar_producto_titulo = Label(ventana_agregar_producto, text='Agregar Productos')
+    agregar_producto_titulo = ttk.Label(ventana_agregar_producto, text='Agregar Productos')
     agregar_producto_titulo.grid(row=0, column=0, columnspan=3)
 
-    producto_nombre_label = Label(ventana_agregar_producto, text='Nombre: ')
+    producto_nombre_label = ttk.Label(ventana_agregar_producto, text='Nombre: ')
     producto_nombre_label.grid(row=1, column=0)
 
-    producto_nombre_entry= Entry(ventana_agregar_producto)
+    producto_nombre_entry= ttk.Entry(ventana_agregar_producto)
     producto_nombre_entry.grid(row=1, column=1)
 
-    producto_precio_label = Label(ventana_agregar_producto, text='Precio: ')
+    producto_precio_label = ttk.Label(ventana_agregar_producto, text='Precio: ')
     producto_precio_label.grid(row=2, column=0)
 
-    producto_precio_entry = Entry(ventana_agregar_producto)
+    producto_precio_entry = ttk.Entry(ventana_agregar_producto)
     producto_precio_entry.grid(row=2, column=1)
 
-    producto_cantidad_label = Label(ventana_agregar_producto, text='Cantidad: ')
+    producto_cantidad_label = ttk.Label(ventana_agregar_producto, text='Cantidad: ')
     producto_cantidad_label.grid(row=3, column=0)
 
-    producto_cantidad_entry = Entry(ventana_agregar_producto)
+    producto_cantidad_entry = ttk.Entry(ventana_agregar_producto)
     producto_cantidad_entry.grid(row=3, column=1)
 
-    producto_proveedor_label = Label(ventana_agregar_producto, text='Proveedor: ')
+    producto_proveedor_label = ttk.Label(ventana_agregar_producto, text='Proveedor: ')
     producto_proveedor_label.grid(row=4, column=0)
 
     proveedor_opciones = consultar_proveedores()
@@ -191,7 +198,7 @@ def ventana_nuevo_producto():
     producto_proveedor_opciones = OptionMenu(ventana_agregar_producto, proveedor_seleccionada, *proveedor_opciones )
     producto_proveedor_opciones.grid(row=4, column=1)
 
-    boton_agregar_proveedor = Button(ventana_agregar_producto, text='+', command=lambda:agregar_proveedor(ventana_agregar_producto))
+    boton_agregar_proveedor = ttk.Button(ventana_agregar_producto, text='+', command=lambda:agregar_proveedor(ventana_agregar_producto))
     boton_agregar_proveedor.grid(row=4, column=2)
 
     producto_categoria_label = Label(ventana_agregar_producto, text='Categoria: ')
@@ -204,16 +211,16 @@ def ventana_nuevo_producto():
     producto_categoria_opciones = OptionMenu(ventana_agregar_producto, categoria_seleccionada, *categoria_opciones)
     producto_categoria_opciones.grid(row=5, column=1)
 
-    boton_agregar_categoria = Button(ventana_agregar_producto, text='+', command=lambda:agregar_categoria(ventana_agregar_producto))
+    boton_agregar_categoria = ttk.Button(ventana_agregar_producto, text='+', command=lambda:agregar_categoria(ventana_agregar_producto))
     boton_agregar_categoria.grid(row=5, column=2)
 
-    boton_agregar_imagen = Button(ventana_agregar_producto, text='Agregar Imagen', command=seleccionar_imagen)
+    boton_agregar_imagen = ttk.Button(ventana_agregar_producto, text='Agregar Imagen', command=seleccionar_imagen)
     boton_agregar_imagen.grid(row=6, column=0, columnspan=3)
 
-    nombre_imagen_label = Label(ventana_agregar_producto, text='')
+    nombre_imagen_label = ttk.Label(ventana_agregar_producto, text='')
     nombre_imagen_label.grid(row=7, column=0, columnspan=3)
 
-    boton_agregar_producto = Button(ventana_agregar_producto, text='Agregar Producto', command=guardar_producto)
+    boton_agregar_producto = ttk.Button(ventana_agregar_producto, text='Agregar Producto', command=guardar_producto)
     boton_agregar_producto.grid(row=8, column=0, columnspan=3)
 
     ventana_agregar_producto.mainloop()
@@ -239,15 +246,18 @@ def consultar_producto(a):
     ventana_consulta.geometry(f"{ancho_ventana}x{alto_ventana}+{x}+{y}")
 
 
-    tipo_filtro = Label (ventana_consulta, text= 'Filtro')
+    tipo_filtro = ttk.Label (ventana_consulta, text= 'Filtro')
     tipo_filtro.grid(row=0, column=0, pady=(25,20), padx=(30,0), sticky=W)
     """Completar tema flitro"""
 
 
-    buscar_nombre = Label (ventana_consulta, text= "Buscar por nombre: ")
+    buscar_nombre = ttk.Label (ventana_consulta, text= "Buscar por nombre: ")
     buscar_nombre.grid(row=1, column=0, padx=(30,0),sticky=W)
-    busqueda = Entry(ventana_consulta, width=40)
+    busqueda = ttk.Entry(ventana_consulta, width=40)
     busqueda.grid(row=1, column=0, sticky=E, padx=(20,0)) 
+    boton_buscar = ttk.Button(ventana_consulta, text="Buscar")
+    boton_buscar.grid(row=1, column=1, padx=15, sticky=W)
+
 
 
     tree_consulta = ttk.Treeview(ventana_consulta, columns=("Clave primaria" ,"Código producto","Nombre", "Cantidad", "Precio por metro"),)
@@ -268,15 +278,15 @@ def consultar_producto(a):
     tree_consulta.grid(padx=10, pady=10)
 
 
-    nuevo_button = tk.Button(ventana_consulta, text="Nuevo", command=ventana_nuevo_producto )
+    nuevo_button = ttk.Button(ventana_consulta, text="Nuevo", command=ventana_nuevo_producto )
     nuevo_button.grid(pady=15, row=5)
 
-    editar_button = tk.Button(ventana_consulta, text="Editar")
+    editar_button = ttk.Button(ventana_consulta, text="Editar")
     editar_button.grid(pady=15, padx=(350, 0), row=5, sticky="E")
 
 
-    eliminar_button= tk.Button(ventana_consulta, text="Eliminar")
-    eliminar_button.grid(pady=15, padx=(150,0), row=5, sticky="w", column=1)
+    eliminar_button= ttk.Button(ventana_consulta, text="Eliminar")
+    eliminar_button.grid(pady=15, padx=(135,0), row=5, sticky="w", column=1)
         
 
 
