@@ -24,15 +24,15 @@ def crear_ventana():
 
 
 
-    isaui_label = ctk.CTkLabel(ventana, text="Trivia 40 Años Isaui", font=("Helvetica", 35), )
-    isaui_label.grid(row=0, column=0, columnspan= 6, sticky="n")
+    isaui_label = ctk.CTkLabel(ventana, text="Trivia 40 Años Isaui", font=("Impact", 35), )
+    isaui_label.grid(row=0, column=0, columnspan= 6, sticky="n", pady= (25,0), padx= (105,0))
     """isaui_label.pack()"""
 
 
     formulario_frame = ctk.CTkFrame(ventana)
     formulario_frame.grid(row= 2, column= 0, columnspan= 3, padx=20, pady=20)
 
-    participante_label = ctk.CTkLabel(formulario_frame, text="Ingrese sus datos", font=("Helvetica", 20))
+    participante_label = ctk.CTkLabel(formulario_frame, text="Ingrese sus datos", font=("Impact", 20))
     participante_label.grid(row=1, column=0, padx= 20, pady=15)
 
 
@@ -65,13 +65,13 @@ def crear_ventana():
     instagram_entry.bind("<Button-1>", lambda x: instagram_entry.delete(0, ctk.END))
     
 
-    boton_jugar = ctk.CTkButton(formulario_frame, text= " Comenzar a jugar ")
+    boton_jugar = ctk.CTkButton(formulario_frame, text= " Comenzar a jugar " )
     boton_jugar.grid(row= 6, column= 2, pady= (25, 10), padx=(0,15))
 
     frame2 = ctk.CTkFrame(ventana)
-    frame2.grid(row= 2, column= 5, padx=20, pady=20)
+    frame2.grid(row= 2, column= 5, padx=20, pady=(80,0))
 
-    tituloJugadores_label = ctk.CTkLabel(frame2, text="Tabla de jugadores", font=("Helvetica", 20))
+    tituloJugadores_label = ctk.CTkLabel(frame2, text="Tabla de jugadores", font=("Impact", 20))
     tituloJugadores_label.grid(row=2, column= 4)
                                          
     
@@ -102,7 +102,7 @@ def crear_ventana():
         jugadores_treeview.insert('','end', values=[nombre, puntaje, tiempo, teléfono], tags=("fuente_personalizada",))
         jugadores_treeview.tag_configure("fuente_personalizada", font=fuente)
 
-    jugadores_treeview.grid(row=3, column=4, pady=10, rowspan=4, sticky="nsew")
+    jugadores_treeview.grid(row=3, column=4, pady=10, sticky="nsew")
 
     ventana.mainloop()
 
