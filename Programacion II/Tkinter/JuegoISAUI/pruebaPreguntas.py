@@ -15,17 +15,19 @@ conexion = mysql.connector.connect(
     database="juego",
     port=3305,
 )
-preguntas_respondidas = []
+
+preguntas_respondidas =[]
 contador_correctas = 0
 contador_incorrectas = 0
+
+
+
 minutos_transcurridos = 0
 segundos_transcurridos = 0
 cronometro_en_ejecucion = False
 
-
-
-
 def ventana_juego():
+
 
     def actualizar_cronometro():
         global minutos_transcurridos, segundos_transcurridos
@@ -96,6 +98,8 @@ def ventana_juego():
     ventana_JuegoOn.title("Juego de Preguntas")
     ventana_JuegoOn.attributes('-fullscreen', True)
 
+
+
     tiempo_str = tk.StringVar()
     tiempo_str.set("00:00")
 
@@ -131,10 +135,14 @@ def ventana_juego():
     etiqueta_tiempo = ctk.CTkLabel(preguntas_frame, text=tiempo_str.get(), font=("Impact", 20))
     etiqueta_tiempo.grid(row= 7, column=1, pady=20, padx= 10)
 
+    boton_start = ctk.CTkButton(preguntas_frame, text="Iniciar juego", font=("Impact", 20), command= iniciar_cronometro)
+    boton_start.grid(row= 8, column=8, pady=20, padx= 10)
+
     mostrar_pregunta()
-
+    iniciar_cronometro()
     ventana_JuegoOn.mainloop()
-
+   
+    
 
 if __name__ == "__main__":
     ventana_juego()
