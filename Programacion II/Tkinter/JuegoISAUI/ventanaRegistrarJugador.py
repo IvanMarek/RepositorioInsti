@@ -4,6 +4,7 @@ import customtkinter as ctk
 from tkinter import filedialog
 import mysql.connector
 from tkinter import messagebox
+import pruebaPreguntas
 
 conexion = mysql.connector.connect(
     host="localhost",
@@ -27,6 +28,7 @@ def ventana_Inicio():
             lista_jugador.append(telefono)
             lista_jugador.append(insta)
             print(lista_jugador)
+            pruebaPreguntas.ventana_juego()
         else:
             messagebox.showerror('Error','Tienes que ingresar tus datos')
 
@@ -57,23 +59,23 @@ def ventana_Inicio():
     nombre_label.grid(row=2, column=0, padx= (10,5))
     nombre_entry = ctk.CTkEntry(formulario_frame, border_width= 3, width=155)
     nombre_entry.grid(row=2, column=2, pady= 5, columnspan=2, padx=(0,15))
-    nombre_entry.insert(0, "Ingrese su nombre")
-    nombre_entry.bind("<Button-1>", lambda x: nombre_entry.delete(0, ctk.END))
+    #nombre_entry.insert(0, "Ingrese su nombre")
+    #nombre_entry.bind("<Button-1>", lambda x: nombre_entry.delete(0, ctk.END))
 
 
     tel_label = ctk.CTkLabel(formulario_frame, text="Teléfono", font=("Impact", 20))
     tel_label.grid(row=4, column=0, padx= (10,5))
     tel_entry = ctk.CTkEntry(formulario_frame, border_width= 3, width=155)
     tel_entry.grid(row=4, column=2, pady= 5, columnspan=2, padx=(0,15))
-    tel_entry.insert(0, "Ingrese número")
-    tel_entry.bind("<Button-1>", lambda x: tel_entry.delete(0, ctk.END))
+    #tel_entry.insert(0, "Ingrese número")
+    #tel_entry.bind("<Button-1>", lambda x: tel_entry.delete(0, ctk.END))
 
     instagram_label = ctk.CTkLabel(formulario_frame, text="Instagram", font=("Impact", 20))
     instagram_label.grid(row=5, column=0, padx= (10,5))
     instagram_entry = ctk.CTkEntry(formulario_frame, border_width= 3, width=155)
     instagram_entry.grid(row=5, column=2, pady= 5, columnspan=2, padx=(0,15))
-    instagram_entry.insert(0, "Ingrese su Instagram")
-    instagram_entry.bind("<Button-1>", lambda x: instagram_entry.delete(0, ctk.END))
+    #instagram_entry.insert(0, "Ingrese su Instagram")
+    #instagram_entry.bind("<Button-1>", lambda x: instagram_entry.delete(0, ctk.END))
 
     
     boton_jugarr = ctk.CTkButton(formulario_frame, text= " Comenzar a jugar ", font=("Impact", 20), command= lambda: registar_jugador())
