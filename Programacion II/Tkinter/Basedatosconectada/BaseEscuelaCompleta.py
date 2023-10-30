@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import mysql.connector
 
+
 # Conexión a la base de datos MySQL
 conexion = mysql.connector.connect(
     host="localhost",
@@ -258,17 +259,7 @@ guardar_button.grid(row=6, columnspan=2, pady=10, sticky="ew")
 
 
 # Crear Treeview para mostrar la información
-tree = ttk.Treeview(
-    root,
-    columns=(
-        "Codigo Alumno",
-        "Nombre",
-        "Apellido",
-        "DNI",
-        "Carrera",
-        "Estado del alumno",
-    ),
-)
+tree = ttk.Treeview(root,columns=("Codigo Alumno","Nombre","Apellido","DNI","Carrera","Estado del alumno",),)
 tree.heading("#2", text="Nombre")
 tree.heading("#3", text="Apellido")
 tree.heading("#4", text="DNI")

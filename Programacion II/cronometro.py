@@ -24,6 +24,8 @@ def guardar_tiempo():
     global minutos_transcurridos, segundos_transcurridos
     tiempo_guardado = (minutos_transcurridos, segundos_transcurridos)
     print(tiempo_guardado)
+    return(tiempo_guardado)
+ 
     # Aquí puedes guardar 'tiempo_guardado' en tu base de datos o en un archivo
 
 ventana = tk.Tk()

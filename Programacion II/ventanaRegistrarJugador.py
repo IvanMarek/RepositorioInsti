@@ -1,19 +1,36 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk as ttk
 import customtkinter as ctk
 from tkinter import filedialog
 import mysql.connector
+from tkinter import messagebox
 
-
-def crear_ventana():
-
-    conexion = mysql.connector.connect(
+conexion = mysql.connector.connect(
     host="localhost",
     user="root",
     password="Ivan08012000@",
     database="juego",
     port=3305,
 )
+
+
+
+def ventana_Inicio():
+
+    def registar_jugador():
+        lista_jugador = []
+        nombre = nombre_entry.get().upper()
+        telefono = tel_entry.get()
+        insta= instagram_entry.get()
+        if nombre and telefono and insta:
+            lista_jugador.append(nombre)
+            lista_jugador.append(telefono)
+            lista_jugador.append(insta)
+            print(lista_jugador)
+        else:
+            messagebox.showerror('Error','Tienes que ingresar tus datos')
+
+
     ventana = ctk.CTk()
     ventana.title("40 'ISAUI' ")
     """ ancho_pantalla = ventana.winfo_screenwidth()
@@ -36,40 +53,34 @@ def crear_ventana():
     participante_label.grid(row=1, column=0, padx= 20, pady=15)
 
 
-    nombre_label = ctk.CTkLabel(formulario_frame, text="Nombre")
+    nombre_label = ctk.CTkLabel(formulario_frame, text="Nombre", font=("Impact", 20))
     nombre_label.grid(row=2, column=0, padx= (10,5))
     nombre_entry = ctk.CTkEntry(formulario_frame, border_width= 3, width=155)
     nombre_entry.grid(row=2, column=2, pady= 5, columnspan=2, padx=(0,15))
     nombre_entry.insert(0, "Ingrese su nombre")
     nombre_entry.bind("<Button-1>", lambda x: nombre_entry.delete(0, ctk.END))
 
-    apellido_label = ctk.CTkLabel(formulario_frame, text="Apellido")
-    apellido_label.grid(row=3, column=0, padx=(10,5))
-    apellido_entry = ctk.CTkEntry(formulario_frame, border_width= 3, width=155)
-    apellido_entry.grid(row=3, column=2, pady= 5, columnspan=2, padx=(0,15))
-    apellido_entry.insert(0, "Ingrese su apellido")
-    apellido_entry.bind("<Button-1>", lambda x: apellido_entry.delete(0, ctk.END))
 
-    tel_label = ctk.CTkLabel(formulario_frame, text="Teléfono")
+    tel_label = ctk.CTkLabel(formulario_frame, text="Teléfono", font=("Impact", 20))
     tel_label.grid(row=4, column=0, padx= (10,5))
     tel_entry = ctk.CTkEntry(formulario_frame, border_width= 3, width=155)
     tel_entry.grid(row=4, column=2, pady= 5, columnspan=2, padx=(0,15))
     tel_entry.insert(0, "Ingrese número")
     tel_entry.bind("<Button-1>", lambda x: tel_entry.delete(0, ctk.END))
 
-    instagram_label = ctk.CTkLabel(formulario_frame, text="Instagram")
+    instagram_label = ctk.CTkLabel(formulario_frame, text="Instagram", font=("Impact", 20))
     instagram_label.grid(row=5, column=0, padx= (10,5))
     instagram_entry = ctk.CTkEntry(formulario_frame, border_width= 3, width=155)
     instagram_entry.grid(row=5, column=2, pady= 5, columnspan=2, padx=(0,15))
     instagram_entry.insert(0, "Ingrese su Instagram")
     instagram_entry.bind("<Button-1>", lambda x: instagram_entry.delete(0, ctk.END))
-    
 
-    boton_jugar = ctk.CTkButton(formulario_frame, text= " Comenzar a jugar " )
-    boton_jugar.grid(row= 6, column= 2, pady= (25, 10), padx=(0,15))
+    
+    boton_jugarr = ctk.CTkButton(formulario_frame, text= " Comenzar a jugar ", font=("Impact", 20), command= lambda: registar_jugador())
+    boton_jugarr.grid(row= 6, column= 2, pady= (25, 10), padx=(0,15))
 
     frame2 = ctk.CTkFrame(ventana)
-    frame2.grid(row= 2, column= 5, padx=20, pady=(80,0))
+    frame2.grid(row= 2, column= 5, padx=20, pady=(135,0))
 
     tituloJugadores_label = ctk.CTkLabel(frame2, text="Tabla de jugadores", font=("Impact", 20))
     tituloJugadores_label.grid(row=2, column= 4)
@@ -80,7 +91,7 @@ def crear_ventana():
     fuente = ("Impact", 16)
 
 
-    jugadores_treeview = ttk.Treeview(frame2, columns=("Nombre", "Apellido", "Puntaje","Tiempo"), style='Treeview')
+    jugadores_treeview = ttk.Treeview(frame2, columns=("Nombre", "Puntaje","Tiempo", "Teléfono"), style='Treeview')
     jugadores_treeview.column("#0", width=0, stretch=NO)
     jugadores_treeview.heading("#1", text='Nombre',anchor=CENTER) 
     jugadores_treeview.heading("#2", text="Puntaje", anchor=CENTER)  
@@ -107,5 +118,5 @@ def crear_ventana():
     ventana.mainloop()
 
 if __name__ == "__main__":
-    crear_ventana()
+    ventana_Inicio()
 
