@@ -5,7 +5,7 @@ import random
 from tkinter import messagebox
 import time
 
-conexion = mysql.connector.connect(host="localhost", user="root", password="estudiantes2020", database="JUEGO", port=3305)
+conexion = mysql.connector.connect(host="localhost", user="root", password="Ivan08012000@", database="JUEGO2", port=3305)
 
 cursor = conexion.cursor()
 pregunta_actual = 0
@@ -20,33 +20,43 @@ ventana = None
 global inicio
 global jugadores_data
 jugadores_data = []
+global nombre_entry
+global apellido_entry
+global telefono_entry
+preguntas_respondidas = []
+global contador_correctas
+contador_correctas = 0
+global contador_incorrectas
+conrador_incorrectas = 0
+
+
+
+def iniciar_juego(ventana):
+    global jugadores_data
+    nombre = nombre_entry.get()
+    apellido = apellido_entry.get()
+    telefono = telefono_entry.get()
+
+    # Verificar si todos los campos están llenos
+    if nombre and apellido and telefono:
+        jugadores_data= [nombre, apellido, telefono]
+        print(jugadores_data)
+        global inicio
+        inicio=time.time()
+        abrir_juego()
+        
+    else:
+        messagebox.showerror("Error", "Los campos son obligatorios. Debes completarlos.")
+
+def salir_pantalla_princial(ventana, root):
+    ventana.destroy()
 
 
 def crear_ventana():
+    global nombre_entry 
+    global apellido_entry
+    global telefono_entry
 
-    def iniciar_juego():
-
-        global jugadores_data
-
-        nombre = nombre_entry.get()
-        apellido = apellido_entry.get()
-        telefono = telefono_entry.get()
-
-        # Verificar si todos los campos están llenos
-        if nombre and apellido and telefono:
-            jugadores_data= [nombre, apellido, telefono]
-            print(jugadores_data)
-            ventana.destroy()
-            global inicio
-            inicio=time.time()
-            abrir_juego()
-            
-        else:
-            messagebox.showerror("Error", "Los campos son obligatorios. Debes completarlos.")
-
-    def salir_pantalla_princial():
-        ventana.destroy()
-        root.destroy()
 
     ventana = tk.Tk()
     ventana.title("Jugadores")
@@ -77,10 +87,10 @@ def crear_ventana():
     telefono_entry = tk.Entry(formulario_frame)
     telefono_entry.grid(row=3, column=1, padx=5, pady=5, ipadx=5, ipady=5, sticky="ew")
 
-    jugar_button = tk.Button(formulario_frame, text="JUGAR", bg="#9E5B00", font=("Arial", 8, 'bold'), command=lambda:iniciar_juego())
+    jugar_button = tk.Button(formulario_frame, text="JUGAR", bg="#9E5B00", font=("Arial", 8, 'bold'), command=lambda:iniciar_juego(ventana))
     jugar_button.grid(row=6, columnspan=2, pady=1, sticky="ew")
 
-    jugar_button = tk.Button(formulario_frame, text="SALIR", bg="#9E5B00", font=("Arial", 8, 'bold'), command=lambda:salir_pantalla_princial())
+    jugar_button = tk.Button(formulario_frame, text="SALIR", bg="#9E5B00", font=("Arial", 8, 'bold'), command=lambda:salir_pantalla_princial(ventana))
     jugar_button.grid(row=7, columnspan=3, pady=5, sticky="ew")
 
     titulo2_label = tk.Label(ventana, text="Tabla de Jugadores", font=("Arial", 35, 'bold'), bg="#630551", fg="white")
@@ -107,45 +117,137 @@ def crear_ventana():
         print(row)
         tree.insert("", "end", values=row)
 
+    ventana.mainloop()
 
-crear_ventana()
 
-root = tk.Tk()
-root.title("Juego de Preguntas y Respuestas")
-root.attributes("-fullscreen", True)
-root.configure(bg="#630551")
 
-label_pregunta = tk.Label(root, text="", font=("Helvetica", 20, 'bold'), bg="#630551", fg="white")
-label_pregunta.pack(pady=90)
+###################################################
+##### IMPRIME LOS LABELS Y BOTONES. VERIFICA ######
+###################################################
 
-frame_respuestas = tk.Frame(root, bg="#630551")
-frame_respuestas.pack()
-botones_respuesta = []
+
+def mostrar_pregunta(label_pregunta,botones_respuestas, root, preguntas_frame):
+        pregunta = obtener_pregunta_aleatoria()
+        if pregunta:
+            label_pregunta.configure(
+                text=pregunta[1]
+            )  # pregunta[1] contiene el texto de la pregunta
+            respuestas = [pregunta[2], pregunta[3], pregunta[4], pregunta[5]]
+            random.shuffle(respuestas)
+
+            respuesta_real = pregunta[2]
+
+            for i in range(4):
+                botones_respuestas[i].configure(
+                    text=respuestas[i],                 ## RESPUESTA CORRECTA ##
+                    command=lambda i=i: verificar_respuesta(respuesta_real, respuestas[i],label_pregunta,botones_respuestas, root, preguntas_frame),
+                )
+        else:
+            label_pregunta.configure(text="¡Has respondido todas las preguntas!")
+
+            tiempo_transcurrido = (time.time() - inicio) * 1000
+            minutos, segundos = divmod(tiempo_transcurrido / 1000, 60)
+            segundos, milisegundos = divmod(segundos, 1)
+            global tiempo_total
+            tiempo_total = f"{int(minutos)} m : {int(segundos)} s : {int(milisegundos)*1000} ms"
+           
+
+            lista_jugador.append(tiempo_total)
+ 
+
+
+            for boton in botones_respuestas:
+                boton.configure(state="disabled")
+            
+            fin_Juego(root, preguntas_frame)
+
+
+
+###################################################
+###################################################
+###################################################
+
+
+
+def obtener_pregunta_aleatoria():
+    
+    cursor.execute(
+        "SELECT codpreguntas, preguntas, respuestas, respuestaErronea_uno , respuestaErronea_dos , respuestaErronea_tres  FROM preguntas"
+    )
+    preguntas = cursor.fetchall()
+
+    preguntas_no_respondidas = [
+        pregunta for pregunta in preguntas if pregunta not in preguntas_respondidas
+    ]
+
+    if not preguntas_no_respondidas:
+        return None
+
+    pregunta = random.choice(preguntas_no_respondidas)
+    preguntas_respondidas.append(pregunta)
+    return pregunta
+
+
+
+###################################################
+######### VERIFICA SI ESTA CORRECTA O NO ##########
+###################################################
+
+
+                    ## RESPUESTA ## RESPUESTA_INDICE 
+def verificar_respuesta(respuesta_real, respuesta,resultado_label,label_correctas,label_incorrectas,label_pregunta,botones_respuestas,  root, preguntas_frame):
+    global contador_correctas, contador_incorrectas
+
+    if respuesta == respuesta_real:  # pregunta[2] contiene la respuesta correcta
+        resultado_label.configure(text="¡Correcto!")
+        contador_correctas += 1
+        """label_correctas.configure(
+            text=f"Respuestas Correctas: {contador_correctas}"
+        )"""
+        
+    else:
+        resultado_label.configure(text="Incorrecto")
+        contador_incorrectas += 1
+        label_incorrectas.configure(
+            text=f"Respuestas Incorrectas: {contador_incorrectas}"
+        )
+    mostrar_pregunta(label_pregunta,botones_respuestas,resultado_label,label_correctas,label_incorrectas, root, preguntas_frame)
+
+
+
+
+
+
 
 def abrir_juego():
+    root = tk.Toplevel()
+    root.title("Juego de Preguntas y Respuestas")
+    root.attributes("-fullscreen", True)
+    root.configure(bg="#630551")
+
+    label_pregunta = tk.Label(root, text="", font=("Helvetica", 20, 'bold'), bg="#630551", fg="white")
+    label_pregunta.pack(pady=90)
+
+    frame_respuestas = tk.Frame(root, bg="#630551")
+    frame_respuestas.pack()
+    botones_respuesta = []
+    for i in range(4):
+        frame_grupo = tk.Frame(frame_respuestas, bg="#630551")
+        frame_grupo.pack(pady=30)
+    boton = tk.Button(frame_grupo, text="", font=("Helvetica", 17), command=lambda i=i: verificar_respuesta(botones_respuesta[i]['text']))
+    boton.pack(pady=10)
+
+    botones_respuesta.append(boton)
+    mostrar_pregunta(label_pregunta)
+    button_salir = tk.Button(root, text="SALIR",  font=("Helvetica", 20), bg="red", fg="white", command=lambda: cerrar_juego(frame_grupo))
+    button_salir.pack(pady=12)
+    root.mainloop()
+
     
 
-    def obtener_preguntas():
-        cursor.execute("SELECT preguntas, respuestas, respuestaErronea_uno, respuestaErronea_dos, respuestaErronea_tres FROM Preguntas")
-        preguntas_respuestas = cursor.fetchall()
-        random.shuffle(preguntas_respuestas)  # Mezclar las preguntas para que aparezcan en orden aleatorio
-        return preguntas_respuestas
+    
 
-    preguntas_respuestas = obtener_preguntas()
-
-    def mostrar_pregunta():
-        global pregunta_actual
-        if pregunta_actual < len(preguntas_respuestas):
-            pregunta, respuesta_correcta, respuesta_incorrecta_1, respuesta_incorrecta_2, respuesta_incorrecta_3 = preguntas_respuestas[pregunta_actual]
-            label_pregunta.config(text=pregunta)
-            opciones = [respuesta_correcta, respuesta_incorrecta_1, respuesta_incorrecta_2, respuesta_incorrecta_3]
-            random.shuffle(opciones)  # Mezclar las opciones de respuesta
-            for i, opcion in enumerate(opciones):
-                botones_respuesta[i].config(text=opcion)
-        else:
-            label_pregunta.config(text="Fin del juego. Puntuación: " + str(puntuacion))
-            for boton in botones_respuesta:
-                boton.config(state=tk.DISABLED)
+   
 
     def verificar_respuesta(opcion):
         global pregunta_actual
@@ -183,16 +285,7 @@ def abrir_juego():
 
             
             
-    for i in range(4):
-        frame_grupo = tk.Frame(frame_respuestas, bg="#630551")
-        frame_grupo.pack(pady=30)
-        boton = tk.Button(frame_grupo, text="", font=("Helvetica", 17), command=lambda i=i: verificar_respuesta(botones_respuesta[i]['text']))
-        boton.pack(pady=10)
 
-        botones_respuesta.append(boton)
-    mostrar_pregunta()
-    button_salir = tk.Button(root, text="SALIR",  font=("Helvetica", 20), bg="red", fg="white", command=lambda: cerrar_juego(frame_grupo))
-    button_salir.pack(pady=12)
 
    #quiero una funcion que me permita apretar el boton salir de la ventana root y se vuelva a la ventana principal
 
@@ -203,7 +296,7 @@ def cerrar_juego(ventana):
     conexion.commit()
     ventana.destroy()
     crear_ventana()
-root.mainloop()
+
 
 
 
