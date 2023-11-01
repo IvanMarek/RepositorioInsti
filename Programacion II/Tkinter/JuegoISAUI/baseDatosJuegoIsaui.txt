@@ -1,0 +1,49 @@
+CREATE TABLE Preguntas (
+codpreguntas int PRIMARY KEY auto_increment ,
+preguntas VARCHAR(150) NOT NULL,
+respuestas varchar (150),
+respuestaErronea_uno varchar (250) not null,
+respuestaErronea_dos varchar (250) not null,
+respuestaErronea_tres varchar (250) not null);
+
+CREATE TABLE Jugador (
+codjugador int PRIMARY KEY auto_increment ,
+nombre varchar (150) NOT NULL,
+telefono int not null,
+instagram varchar (150) not null,
+puntaje int not null,
+tiempo varchar (150) not null);
+
+use JUEGO;
+insert into Preguntas(preguntas, respuestas, respuestaErronea_uno, respuestaErronea_dos, respuestaErronea_tres)
+values('¿En qué año se fundó el ISAUI?', '1983', '1970', '1990', '1995'),
+
+('¿Cuál fue el nombre del establecimiento educativo cuando se fundó?', 'COMPLEJO FACULTATIVO DE ENSEÑANZA SUPERIOR San Francisco de Asís (COFES Sn.FCO.DE ASIS)', 'INSTITUTO SANTA CLARA DE ASIS', 'COLEGIO SAN FRANCISCO JAVIER', 'INSTITUTO ARGENTINO	DE ENSEÑANZA SUPERIOR(IADES)'  ),
+
+('Apellido y Nombre de los fundadores', 'FLORENCIA SOLIS Y EDUARDO RODRIGUEZ', 'MENDEZ FEREDRICO HUGO Y ROBLES JAVIER','PAREDES LUCIANO Y LUNA SANDRA ANTONELLA','BIALET EDUARDO Y DOMINGUEZ JUAN ANTONIO'),
+
+('¿En qué año se convierte a colegio Nacional?', '22/07/85', '25/10/85', '06/08/85', '15/11/85' ),
+
+('¿Cuántos directores tuvo el Instituto hasta la fecha?', '4', '7', '5', '9' ),	
+
+('¿Cuántas carreras se dictan actualmente en el ISAUI ?', '6', '4', '5', '7'),
+
+('¿Cuál fué el primer número de teléfono del Instituto?', '41164', '42356', '45661', '45861'),
+
+('¿Qué es el workshop? ', 'Es una técnica de venta, en el ISAUI los alumnos venden los proyectos trabajados durante el ciclo lectivo en una muestra a fin de año', 'Es un evento para recudar fondos', 'Es una presentación de proyectos sin un fin en especial', 'Es un evento donde los alumnos del instituto ISAUI muestran proyectos de años anteriores'),
+
+('¿Qué carrera fue la pionera con los viajes en las materias de prácticas?', 'TÉCNICO Y GUIA SUPERIOR EN TURISMO', 'TÉCNICO SUPERIOR EN DESSARROLLO DE SOFTWARE', 'ENFERMERIA', 'DISEÑO'),
+
+('¿Cómo era el edificio  educativo en sus comienzos?', 'ERA UNA CASA CON 3 AMBIENTES QUE SE CONVIRTIERON EN AULAS', 'ERA UNA CASONA ABANDONADA', 'ERA UN CENTRO VECINAL', 'ERA UNA BIBLIOTECA'),
+
+('¿ISAUI es un Instituto público ?', 'SI', 'NO','entras por becas', 'es en linea'),
+
+('¿A PARTIR DE QUÉ AÑO LA COOPERADORA EMPEZÓ A CONSTRUIR LAS AULAS?', 'A PARTIR DE 1986, A RAZÓN DE UNA POR AÑO', 'A PARTIR DE 1987, A RAZON DE DOS POR AÑO', 'A PARTIR DE 1988, A RAZON DE DOS POR AÑO', 'A PARTIR DE 1990, A RAZON DE TRES POR AÑO'),
+
+('¿DE DONDE PROVENÍA EL DINERO ?', 'DEL BONO CONTRIBUCIÓN QUE ABONABAN LOS PADRES', 'DEL GOBIERNO', 'DE LA MUNICIPALIDAD DE VILLA CARLOS PAZ', 'DE DONACIONES'),
+
+('¿QUIÉN FUE EL PRESIDENTE DE LA COOPERADORA EN ESOS AÑOS?', 'INICIALMENTE EL SR.GATICA, LUEGO EL SR. CONSTANTE BOGADO POR MUCHOS AÑOS', 'INICIALMENTE EL SR.FARIAS, LUEGO EL SR. ROJAS BOGADO POR MUCHOS AÑOS', 'INICIALMENTE EL SR.BERTOLDI, LUEGO EL SR. LOPEZ BOGADO POR MUCHOS AÑOS', 'INICIALMENTE EL SR.BERTOLDO, LUEGO EL SR. GONZÁLEZ BOGADO POR MUCHOS AÑOS'),
+
+('¿QUIÉN ES LA PRESIDENTA DE LA COOPERADORA ACTUALMENTE?','DANIELA MASCHIO', 'ANDREA GERBAUDO', 'BERTOLDO CARLA', 'MARIELA PAEZ'),
+
+('¿CÓMO SE LOGRÓ LA NACIONALIZACIÓN?', 'MEDIANTE LA GESTIÓN DEL DIPUTADO DE V.C.PAZ ANSELMO PELAEZ EN LA GESTIÓN DE LEOPOLDO BRAVO EN LA PRESIDENCIA DE R.ALFONSÍN', 'MEDIANTE LA GESTIÓN DEL DIPUTADO DE CÓRDOBA ANSELMO PELAEZ EN LA GESTIÓN DE LEOPOLDO BRAVO EN LA PRESIDENCIA DE R.ALFONSÍN', 'MEDIANTE LA GESTIÓN DEL DIPUTADO DE TANTI ANSELMO PELAEZ EN LA GESTIÓN DE LEOPOLDO BRAVO EN LA PRESIDENCIA DE R.ALFONSÍN', 'MEDIANTE LA GESTIÓN DEL DIPUTADO DE ALTA GRACIA ANSELMO PELAEZ EN LA GESTIÓN DE LEOPOLDO BRAVO EN LA PRESIDENCIA DE R.ALFONSÍN');
